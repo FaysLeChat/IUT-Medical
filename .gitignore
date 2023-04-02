@@ -1,0 +1,43 @@
+# Dossiers et fichiers à ignorer
+/front/node_modules/
+/front/build/
+/front/dist/
+/front/.env
+/back/node_modules/
+/back/build/
+/back/dist/
+/back/.env
+
+# Fichiers de sauvegarde de l'éditeur
+.vscode/
+*.swp
+*~
+._*
+.DS_Store
+
+# Logs
+log/
+*.log
+
+# Cache de dépendances
+yarn-error.log
+yarn.lock
+
+# Fichiers de build
+*.min.js
+*.min.css
+*.min.map
+
+# Fichiers d'environnement
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dossiers et fichiers à inclure
+!/front/src/
+!/front/public/
+!/back/server/
+!/back/server.js
+!/back/package.json
+!/back/README.md
