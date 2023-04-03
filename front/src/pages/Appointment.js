@@ -1,7 +1,8 @@
 import React from 'react'
-import FullCalendar from '@fullcalendar/react' // must go before plugins
+import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import NavbarComponent from "../components/NavbarComponent"; // a plugin!
+import NavbarComponent from "../components/NavbarComponent";
+import {Container} from "react-bootstrap";
 
 export default function Appointment() {
         return (
@@ -11,10 +12,9 @@ export default function Appointment() {
                 </header>
 
                 <main>
-                    <FullCalendar
-                        plugins={[ dayGridPlugin ]}
-                        initialView="dayGridMonth"
-                    />
+                    <Container className="mt-5">
+                        <FullCalendar plugins={[ dayGridPlugin ]} initialView="dayGridMonth" />
+                    </Container>
                 </main>
             </div>
         )
