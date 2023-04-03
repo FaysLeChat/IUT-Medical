@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-    const [person, setPerson] = useState({name: "", password: ""});
+    const [person, setPerson] = useState({name: "", password: "", email: ""});
     const navigate = useNavigate();
 
     function handleTextChange(e, label) {
@@ -20,7 +20,7 @@ export default function Login() {
             } else {
                 alert(response.token);
             }
-            setPerson({name: "", password: ""});
+            setPerson({name: "", password: "", email: ""});
         } catch (e) {
             console.error("ERR", e);
         }
@@ -32,10 +32,10 @@ export default function Login() {
                 <div className="col col-lg-3">
                     <h1 className="person-title">Se connecter</h1>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="personName">
-                            <Form.Label>Nom</Form.Label>
-                            <Form.Control type="text" placeholder="Nom" value={person.name}
-                                          onChange={e => handleTextChange(e, "name")}/>
+                        <Form.Group className="mb-3" controlId="personEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" placeholder="Adresse email" value={person.email}
+                                          onChange={e => handleTextChange(e, "email")}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="personPassword">
