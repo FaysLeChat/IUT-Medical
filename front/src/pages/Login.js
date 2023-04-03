@@ -3,7 +3,7 @@ import axios from "axios";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export default function Signin() {
+export default function Login() {
     const [person, setPerson] = useState({name: "", password: ""});
     const navigate = useNavigate();
 
