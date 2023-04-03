@@ -18,7 +18,7 @@ function NavbarComponent() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/"><FontAwesomeIcon icon={faHome} /> Accueil</Nav.Link>
-                            <Nav.Link as={Link} to="/rdv"><FontAwesomeIcon icon={faCalendar} /> Rendez-vous</Nav.Link>
+                            <Nav.Link as={Link} to="/appointment"><FontAwesomeIcon icon={faCalendar} /> Rendez-vous</Nav.Link>
                             <Nav.Link as={Link} to="/contact"><FontAwesomeIcon icon={faEnvelope} /> Contact</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
