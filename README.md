@@ -4,3 +4,7 @@
 - Lucie CAUDRON
 - Maxence DUBOIS
 - Allan PONCHAUT
+
+## Schema BDD
+
+![schema](other/schema.png)
