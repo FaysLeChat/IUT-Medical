@@ -1,6 +1,7 @@
 import {Button, Container, Form} from "react-bootstrap";
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import NavbarComponent from "../components/NavbarComponent";
 
 
 export default function Register(){
@@ -26,41 +27,49 @@ export default function Register(){
     }
 
     return (
-        <Container>
-            <div className="row justify-content-md-center">
-                <div className="col col-lg-3">
-                    <h1 className="person-title">Créer un compte</h1>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="personName">
-                            <Form.Label>Nom</Form.Label>
-                            <Form.Control type="text" placeholder="Nom" value={person.surname}
-                                          onChange={e => handleTextChange(e, "name")}/>
-                        </Form.Group>
+        <div className="App">
+            <header>
+                <NavbarComponent />
+            </header>
 
-                        <Form.Group className="mb-3" controlId="personSurname">
-                            <Form.Label>Prénom</Form.Label>
-                            <Form.Control type="text" placeholder="Prénom" value={person.name}
-                                          onChange={e => handleTextChange(e, "name")}/>
-                        </Form.Group>
+            <main>
+                <Container>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-lg-3">
+                            <h1 className="person-title">Créer un compte</h1>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="personName">
+                                    <Form.Label>Nom</Form.Label>
+                                    <Form.Control type="text" placeholder="Nom" value={person.surname}
+                                                  onChange={e => handleTextChange(e, "name")}/>
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="personEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" placeholder="Email" value={person.email}
-                                          onChange={e => handleTextChange(e, "email")}/>
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="personSurname">
+                                    <Form.Label>Prénom</Form.Label>
+                                    <Form.Control type="text" placeholder="Prénom" value={person.name}
+                                                  onChange={e => handleTextChange(e, "name")}/>
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="personPassword">
-                            <Form.Label>Mot de passe</Form.Label>
-                            <Form.Control type="password" placeholder="" value={person.password}
-                                          onChange={e => handleTextChange(e, "password")}/>
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="personEmail">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="text" placeholder="Email" value={person.email}
+                                                  onChange={e => handleTextChange(e, "email")}/>
+                                </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                            OK
-                        </Button>
-                    </Form>
-                </div>
-            </div>
-        </Container>
+                                <Form.Group className="mb-3" controlId="personPassword">
+                                    <Form.Label>Mot de passe</Form.Label>
+                                    <Form.Control type="password" placeholder="" value={person.password}
+                                                  onChange={e => handleTextChange(e, "password")}/>
+                                </Form.Group>
+
+                                <Button variant="primary" type="submit">
+                                    OK
+                                </Button>
+                            </Form>
+                        </div>
+                    </div>
+                </Container>
+            </main>
+        </div>
     );
 }
