@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export default function Register(){
-    const [person, setPerson] = useState({name: "", password: ""});
+    const [person, setPerson] = useState({name: "", password: "", email: ""});
 
     function handleTextChange(e, label) {
         setPerson({...person, [label]: e.target.value})
@@ -19,7 +19,7 @@ export default function Register(){
             } else {
                 alert(response.id);
             }
-            setPerson({name: "", password: ""});
+            setPerson({name: "", password: "", email: ""});
         } catch (e) {
             console.error("ERR", e);
         }
@@ -35,6 +35,12 @@ export default function Register(){
                             <Form.Label>Nom</Form.Label>
                             <Form.Control type="text" placeholder="Nom" value={person.name}
                                           onChange={e => handleTextChange(e, "name")}/>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="personEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" placeholder="Email" value={person.email}
+                                          onChange={e => handleTextChange(e, "email")}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="personPassword">
