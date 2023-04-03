@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS medicaloffice;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE medicaloffice (
-                          id INTEGER PRIMARY KEY,
+                          id INTEGER PRIMARY KEY autoincrement,
                           name TEXT NOT NULL,
                           address TEXT NOT NULL,
                           city TEXT NOT NULL,
@@ -13,21 +13,21 @@ CREATE TABLE medicaloffice (
 );
 
 CREATE TABLE doctors (
-                         id INTEGER PRIMARY KEY,
+                         id INTEGER PRIMARY KEY autoincrement,
                          description TEXT NOT NULL,
                          cabinet_id INTEGER NOT NULL,
                          FOREIGN KEY (cabinet_id) REFERENCES cabinets (id)
 );
 
 CREATE TABLE patients (
-                          id INTEGER PRIMARY KEY,
+                          id INTEGER PRIMARY KEY autoincrement,
                           birthdate DATE NOT NULL,
                           doctor_id INTEGER NOT NULL,
                           FOREIGN KEY (doctor_id) REFERENCES doctors (id)
 );
 
 CREATE TABLE appointments (
-                              id INTEGER PRIMARY KEY,
+                              id INTEGER PRIMARY KEY autoincrement,
                               start_time DATETIME NOT NULL,
                               end_time DATETIME NOT NULL,
                               doctor_id INTEGER NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE appointments (
 );
 
 CREATE TABLE users (
-                       id INTEGER PRIMARY KEY,
+                       id INTEGER PRIMARY KEY autoincrement,
                        name TEXT NOT NULL,
                        surname TEXT NOT NULL,
                        email TEXT NOT NULL,
