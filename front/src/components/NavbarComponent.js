@@ -26,8 +26,8 @@ function NavbarComponent() {
                         <Dropdown as={Nav.Item}>
                             <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser} /> Compte</Dropdown.Toggle>
                             <Dropdown.Menu align="end">
-                                <Dropdown.Item as={Link} to="/login">Login</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/register">Register</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Nav>
