@@ -7,6 +7,8 @@ import cbanner1 from '../assets/img/cbanner1.jpg';
 import cbanner2 from '../assets/img/cbanner2.png';
 import NavbarComponent from "../components/NavbarComponent";
 import FooterComponent from "../components/FooterComponent";
+import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Home = () => {
     return (
@@ -39,7 +41,7 @@ const Home = () => {
                         <Col md={4}>
                             <Card className="mb-4">
                                 <Card.Body>
-                                    <Card.Title>Prendre rendez-vous</Card.Title>
+                                    <Card.Title><FontAwesomeIcon icon={faCalendar} /> Prendre rendez-vous</Card.Title>
                                     <Form>
                                         <Form.Group controlId="appointmentDate">
                                             <Form.Label>Date</Form.Label>
@@ -58,7 +60,7 @@ const Home = () => {
                             <Accordion defaultActiveKey="0">
                                 <Card>
                                     <Card.Header>
-                                        <CustomToggle eventKey="0">Informations</CustomToggle>
+                                        <CustomToggle eventKey="0"><FontAwesomeIcon icon={faInfoCircle} /> Informations</CustomToggle>
                                     </Card.Header>
                                     <Accordion.Collapse eventKey="0">
                                         <Card.Body>
@@ -70,7 +72,7 @@ const Home = () => {
                                 </Card>
                                 <Card>
                                     <Card.Header>
-                                        <CustomToggle eventKey="1">Horaires d'ouverture</CustomToggle>
+                                        <CustomToggle eventKey="1"><FontAwesomeIcon icon={faClock} /> Horaires d'ouverture</CustomToggle>
                                     </Card.Header>
                                     <Accordion.Collapse eventKey="1">
                                         <Card.Body>
