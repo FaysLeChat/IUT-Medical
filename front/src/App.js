@@ -1,11 +1,12 @@
-import './App.css';
+import React from 'react';
+import AppRoutes from './routes';
 
 function App() {
-  return (
-      <div className="App">
-        <h1>Yolo</h1>
-      </div>
-  );
+    return (
+        <div className="App">
+            <AppRoutes />
+        </div>
+    );
 }
 
 export default App;
