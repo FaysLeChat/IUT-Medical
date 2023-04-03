@@ -1,0 +1,55 @@
+@startuml
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define PK(x) <b><u>x</u></b>
+!define FK(x) <u>x</u>
+
+Table(users, "users") {
+  PK(id)
+  --
+  String name
+  String surname
+  String email
+  String password
+  FK(patient_id)
+  FK(doctor_id)
+}
+
+Table(doctors, "doctors") {
+  PK(id)
+  --
+  String description
+  FK(cabinet_id)
+}
+
+Table(cabinets, "cabinets") {
+  PK(id)
+  --
+  String name
+  String address
+  String city
+  String postal_code
+}
+
+Table(patients, "patients") {
+  PK(id)
+  --
+  Date birthdate
+  FK(doctor_id)
+}
+
+Table(appointments, "appointments") {
+  PK(id)
+  --
+  DateTime start_time
+  DateTime end_time
+  FK(doctor_id)
+  FK(patient_id)
+}
+
+users "0..1" -- "1" patients
+users "0..1" -- "1" doctors
+doctors "n" -- "1" cabinets
+patients "0" -- "n" doctors
+doctors "1" -- "n" appointments
+patients "1" -- "n" appointments
+@enduml
