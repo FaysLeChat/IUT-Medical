@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-    const [person, setPerson] = useState({name: "", password: "", email: ""});
+    const [person, setPerson] = useState({password: "", email: ""});
     const navigate = useNavigate();
 
     function handleTextChange(e, label) {
@@ -20,7 +20,7 @@ export default function Login() {
             } else {
                 alert(response.token);
             }
-            setPerson({name: "", password: "", email: ""});
+            setPerson({password: "", email: ""});
         } catch (e) {
             console.error("ERR", e);
         }
