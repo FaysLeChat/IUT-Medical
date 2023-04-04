@@ -4,11 +4,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
-import {Dropdown} from "react-bootstrap";
+import {Button, Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar, faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
-function NavbarComponent() {
+function NavbarComponent(props) {
+    let email ;
+
+    if(props.cookie && props.cookie.amigo) {
+        email = props.cookie.amigo.email;
+    }
+
     return (
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
@@ -23,13 +29,20 @@ function NavbarComponent() {
                         </Nav>
                     </Navbar.Collapse>
                     <Nav>
-                        <Dropdown as={Nav.Item}>
-                            <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser} /> Compte</Dropdown.Toggle>
-                            <Dropdown.Menu align="end">
-                                <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        { email === undefined ? (
+                            <Dropdown as={Nav.Item}>
+                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> Compte</Dropdown.Toggle>
+                                <Dropdown.Menu align="end">
+                                    <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        ) : (
+                            <div style={{display: 'flex', gap: '10px'}}>
+                                <Nav.Item style={{color: '#9b9d9e'}}>Bienvenue {email} !</Nav.Item>
+                                <Button variant="outline-danger" onClick={() => props.removeCookie("amigo")}>Déconnexion</Button>
+                            </div>
+                        )}
                     </Nav>
                 </Container>
             </Navbar>
