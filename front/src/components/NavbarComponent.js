@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
-import {Button, Dropdown} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar, faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
@@ -31,17 +31,20 @@ function NavbarComponent(props) {
                     <Nav>
                         { email === undefined ? (
                             <Dropdown as={Nav.Item}>
-                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> Compte</Dropdown.Toggle>
+                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> Invité</Dropdown.Toggle>
                                 <Dropdown.Menu align="end">
                                     <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
                                     <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         ) : (
-                            <div style={{display: 'flex', gap: '10px'}}>
-                                <Nav.Item style={{color: '#9b9d9e'}}>Bienvenue {email} !</Nav.Item>
-                                <Button variant="outline-danger" onClick={() => props.removeCookie("amigo")}>Déconnexion</Button>
-                            </div>
+                            <Dropdown as={Nav.Item}>
+                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> {email}</Dropdown.Toggle>
+                                <Dropdown.Menu align="end">
+                                    <Dropdown.Item as={Link} to="/profil">Profil</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => props.removeCookie("amigo")}>Se déconnecter</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         )}
                     </Nav>
                 </Container>
