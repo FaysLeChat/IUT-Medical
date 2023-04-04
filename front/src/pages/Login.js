@@ -19,6 +19,7 @@ export default function Login() {
                 alert("Echec de connexion!");
             } else {
                 alert("Token: " + response.token);
+                window.location.replace("http://www.localhost:3000/");
             }
             setPerson({password: "", email: ""});
         } catch (e) {
