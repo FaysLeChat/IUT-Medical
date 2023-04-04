@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
+import timeGridWeek from '@fullcalendar/timegrid';
 import {Container} from "react-bootstrap";
 import axios from "axios";
 
@@ -28,8 +28,8 @@ export default function Appointment() {
             <div className="App">
                 <main>
                     <Container className="mt-5">
-                        <FullCalendar plugins={[ dayGridPlugin, interactionPlugin ]}
-                                      initialView="dayGridMonth"
+                        <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
+                                      initialView="timeGridWeek"
                                       events={appointmentEvents}
                                       editable={true}
                                       droppable={true}
