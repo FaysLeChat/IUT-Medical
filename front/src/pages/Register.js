@@ -20,7 +20,7 @@ export default function Register(){
             } else {
                 alert("Votre utilisateur a été créé! (ID " + response.id + ")");
             }
-            setPerson({name: "", surname: "", password: "", email: "", patient_id: 1});
+            setPerson({name: "", surname: "", password: "", email: ""});
         } catch (e) {
             console.error("ERR", e);
         }

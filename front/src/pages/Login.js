@@ -19,7 +19,7 @@ export default function Login() {
             if (response.token === undefined) {
                 alert("Echec de connexion!");
             } else {
-                alert("Token:" + response.token);
+                alert("Token: " + response.token);
             }
             setPerson({password: "", email: ""});
         } catch (e) {
