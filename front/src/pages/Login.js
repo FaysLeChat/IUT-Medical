@@ -3,13 +3,10 @@ import axios from "axios";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import login from "../assets/img/login.png";
-import {useCookies} from "react-cookie";
 
-export default function Login() {
+export default function Login(props) {
     const [person, setPerson] = useState({password: "", email: ""});
     const navigate = useNavigate();
-    // eslint-disable-next-line no-unused-vars
-    const [cookies, setCookie] = useCookies(['amigo']);
 
     function handleTextChange(e, label) {
         setPerson({...person, [label]: e.target.value})
@@ -17,20 +14,22 @@ export default function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        try {
             const response = (await axios.post("http://localhost:8000/login", person)).data;
-            if (response.token !== undefined) {
-                setCookie("amigo", {
+            if (response.token === undefined) {
+                alert("Echec de connexion!");
+            } else {
+                props.setCookie("amigo", {
                     email: person.email,
                     token: response.token
-                }, {path: '/'});
+                }, "/");
 
-                alert("Token: " + response.token);
-
-                // window.location.replace("http://localhost:3000/");
-            } else {
-                console.log("Echec de connexion");
+                window.location.replace("http://localhost:3000/");
             }
             setPerson({password: "", email: ""});
+        } catch (e) {
+            console.error("ERR", e);
+        }
     }
 
     return (
