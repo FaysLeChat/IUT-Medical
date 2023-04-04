@@ -9,8 +9,15 @@ import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-ico
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
 
-const Home = () => {
+const Home = (props) => {
     const navigate = useNavigate();
+    let email ;
+
+    if(props.cookie && props.cookie.amigo) {
+        email = props.cookie.amigo.email;
+        console.log(props);
+    }
+
     return (
         <div className="App">
             <main>
@@ -39,15 +46,37 @@ const Home = () => {
                                 <Card.Body>
                                     <Card.Title><FontAwesomeIcon icon={faCalendar} /> Prendre rendez-vous</Card.Title>
                                     <Form>
-                                        <Form.Group controlId="appointmentDate">
-                                            <Form.Label>Date</Form.Label>
-                                            <Form.Control type="date" />
-                                        </Form.Group>
-                                        <Form.Group controlId="appointmentTime">
-                                            <Form.Label>Heure</Form.Label>
-                                            <Form.Control type="time" />
-                                        </Form.Group>
-                                        <Button variant="outline-primary" className="rounded-pill mt-3">Valider</Button>
+                                        <Row>
+                                            <label>Date de début</label>
+                                            <Col>
+                                                <Form.Group controlId="appointmentDate">
+                                                    <Form.Control type="date" />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col>
+                                                <Form.Group controlId="appointmentTime">
+                                                    <Form.Control type="time" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <label>Date de fin</label>
+                                            <Col>
+                                                <Form.Group controlId="appointmentDate">
+                                                    <Form.Control type="date" />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col>
+                                                <Form.Group controlId="appointmentTime">
+                                                    <Form.Control type="time" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        { email === undefined ? (
+                                            <Button variant="outline-danger" className="rounded-pill mt-3" onClick={() => navigate("/login")}>Se connecter</Button>
+                                        ) : (
+                                            <Button variant="outline-primary" className="rounded-pill mt-3">Valider</Button>
+                                        )}
                                     </Form>
                                 </Card.Body>
                             </Card>
