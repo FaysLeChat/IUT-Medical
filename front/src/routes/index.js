@@ -11,7 +11,7 @@ import FooterComponent from "../components/FooterComponent";
 
 const AppRoutes = (props) => (
     <BrowserRouter>
-        <NavbarComponent />
+        <NavbarComponent cookie={props.cookies}/>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login setCookie={props.setCookie} />} />
