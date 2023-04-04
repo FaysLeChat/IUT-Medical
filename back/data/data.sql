@@ -15,8 +15,8 @@ CREATE TABLE medicaloffice (
 CREATE TABLE doctors (
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          description TEXT NOT NULL,
-                         cabinet_id INTEGER NOT NULL,
-                         FOREIGN KEY (cabinet_id) REFERENCES cabinets (id)
+                         medicaloffice_id INTEGER NOT NULL,
+                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id)
 );
 
 CREATE TABLE patients (
