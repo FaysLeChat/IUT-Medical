@@ -17,7 +17,7 @@ export default function Register(){
                 alert("Echec de connexion!");
             } else {
                 alert("Votre utilisateur a été créé! (ID " + response.id + ")");
-                window.location.replace("http://www.localhost:3000/");
+                window.location.replace("http://localhost:3000/");
             }
             setPerson({name: "", surname: "", password: "", email: ""});
         } catch (e) {
