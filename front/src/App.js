@@ -7,7 +7,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <AppRoutes setCookie={setCookie} />
+            <AppRoutes setCookie={setCookie} cookies={cookies} removeCookie={removeCookie}/>
         </div>
     );
 };
