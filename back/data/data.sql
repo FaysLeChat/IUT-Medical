@@ -52,7 +52,7 @@ INSERT INTO medicaloffice (name, address, city, postal_code) VALUES
                                                             ('Cabinet A', '123 Main St', 'Anytown', '12345'),
                                                             ('Cabinet B', '456 Oak St', 'Anycity', '67890');
 
-INSERT INTO doctors (description, cabinet_id) VALUES
+INSERT INTO doctors (description, medicaloffice_id) VALUES
                                                   ('Dr. Smith', 1),
                                                   ('Dr. Johnson', 2);
 
