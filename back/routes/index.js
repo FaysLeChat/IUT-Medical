@@ -26,6 +26,46 @@ router.get("/home", auth.authenticate() ,(req, res) => {
   res.json( "Hello world !!!!");
 });
 
+router.post("/register", (req, res) => {
+    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+        db.run(
+            "INSERT INTO users (name, surname, email, password) VALUES ($name, $surname, $email, $password)",
+            {
+                $name: req.body.name,
+                $surname: req.body.surname,
+                $email: req.body.email,
+                $password: hash
+            },
+            function (err) {
+                if (err) {
+                    return res.json(err).status(401);
+                }
+                return res.json({ id: this.lastID }).status(201);
+            }
+        );
+    });
+});
+
+router.post("/login", (req, res) => {
+    db.get('SELECT * FROM users WHERE email = $email',
+        { $email: req.body.email },
+        async (err, row) => {
+            if (err) {
+                console.log(err);
+                return res.json(err).status(500);
+            }
+            if (!row) {
+                return res.json("bad user");
+            }
+            const match = await bcrypt.compare(req.body.password, row.password);
+            if (match) {
+                const token = jwt.sign({ id: row.id, patient_id: row.patient_id, doctor_id: row.doctor_id }, cfg.jwtSecret, { expiresIn: "1h" });
+                return res.json({ token: token });
+            }
+            res.json("bad password").status(401);
+        })
+})
+
 router.get('/doctors', (req, res) => {
   db.all('SELECT * FROM doctors', (err, rows) => {
     if (err) {
