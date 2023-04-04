@@ -322,12 +322,35 @@ router.put('/appointments/:id', (req, res) => {
     );
 });
 
+router.put('/users/:id', (req, res) => {
+    const id = req.params.id;
+    const { name, surname, email, password, patient_id, doctor_id } = req.body;
+
+    db.run(
+        'UPDATE appointments SET name=?, surname=?, email=?, password=?, patient_id=?, doctor_id=? WHERE id=?',
+        [name, surname, email, password, patient_id, doctor_id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send(`Appointment with ID ${id} not found.`);
+            } else {
+                res.sendStatus(204);
+            }
+        }
+    );
+});
+
 router.get("/appointments/:id",(req,res)=>
 {db.get("select * from appointments where id=?",
     req.params.id,(err,row)=>{res.json(row)})})
 
 router.delete("/appointments/:id",(req,res)=>
 {db.get("delete from appointments where id=?",
+    req.params.id,(err,row)=>{res.json(row)})})
+
+router.get("/patients/:id",(req,res)=>
+{db.get("select * from patients where id=?",
     req.params.id,(err,row)=>{res.json(row)})})
 
 module.exports = router;
