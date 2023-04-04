@@ -15,8 +15,8 @@ CREATE TABLE medicaloffice (
 CREATE TABLE doctors (
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          description TEXT NOT NULL,
-                         cabinet_id INTEGER NOT NULL,
-                         FOREIGN KEY (cabinet_id) REFERENCES cabinets (id)
+                         medicaloffice_id INTEGER NOT NULL,
+                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id)
 );
 
 CREATE TABLE patients (
@@ -52,7 +52,7 @@ INSERT INTO medicaloffice (name, address, city, postal_code) VALUES
                                                             ('Cabinet A', '123 Main St', 'Anytown', '12345'),
                                                             ('Cabinet B', '456 Oak St', 'Anycity', '67890');
 
-INSERT INTO doctors (description, cabinet_id) VALUES
+INSERT INTO doctors (description, medicaloffice_id) VALUES
                                                   ('Dr. Smith', 1),
                                                   ('Dr. Johnson', 2);
 
