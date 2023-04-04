@@ -76,4 +76,14 @@ router.get('/doctors', (req, res) => {
   });
 });
 
+router.get('/appointments', (req, res) => {
+  db.all('SELECT * FROM appointments', (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 module.exports = router;
