@@ -2,7 +2,6 @@ import {Button, Container, Form} from "react-bootstrap";
 import axios from "axios";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import NavbarComponent from "../components/NavbarComponent";
 
 export default function Login() {
     const [person, setPerson] = useState({password: "", email: ""});
@@ -29,10 +28,6 @@ export default function Login() {
 
     return (
         <div className="App">
-            <header>
-                <NavbarComponent />
-            </header>
-
             <main>
                 <Container>
                     <div className="row justify-content-md-center">
