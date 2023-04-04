@@ -106,4 +106,66 @@ router.get('/appointments', (req, res) => {
     });
 });
 
+/* POST endpoints */
+
+router.post('/medicaloffices', (req, res) => {
+    const { name, address, city, postal_code } = req.body;
+    db.run(
+        "INSERT INTO medicaloffice (name, address, city, postal_code) VALUES (?, ?, ?, ?)",
+        [name, address, city, postal_code],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.json({ id: this.lastID });
+            }
+        }
+    );
+});
+
+router.post('/doctors', (req, res) => {
+    const { description, medicaloffice_id } = req.body;
+    db.run(
+        "INSERT INTO doctors (description, medicaloffice_id) VALUES (?, ?)",
+        [description, medicaloffice_id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.json({ id: this.lastID });
+            }
+        }
+    );
+});
+
+router.post('/patients', (req, res) => {
+    const { birthdate, doctor_id } = req.body;
+    db.run(
+        "INSERT INTO patients (birthdate, doctor_id) VALUES (?, ?)",
+        [birthdate, doctor_id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.json({ id: this.lastID });
+            }
+        }
+    );
+});
+
+router.post('/appointments', (req, res) => {
+    const { start_time, end_time, doctor_id, patient_id } = req.body;
+    db.run(
+        "INSERT INTO appointments (start_time, end_time, doctor_id, patient_id) VALUES (?, ?, ?, ?)",
+        [start_time, end_time, doctor_id, patient_id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.json({ id: this.lastID });
+            }
+        }
+    );
+});
+
 module.exports = router;
