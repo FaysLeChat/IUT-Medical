@@ -1,8 +1,6 @@
 import {Button, Container, Form} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
-import NavbarComponent from "../components/NavbarComponent";
-
 
 export default function Register(){
     const [person, setPerson] = useState({name: "", surname: "", password: "", email: ""});
@@ -28,10 +26,6 @@ export default function Register(){
 
     return (
         <div className="App">
-            <header>
-                <NavbarComponent />
-            </header>
-
             <main>
                 <Container>
                     <div className="row justify-content-md-center">

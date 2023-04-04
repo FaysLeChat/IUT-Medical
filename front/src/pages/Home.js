@@ -5,17 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import cbanner1 from '../assets/img/cbanner1.jpg';
 import cbanner2 from '../assets/img/cbanner2.png';
-import NavbarComponent from "../components/NavbarComponent";
 import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Home = () => {
     return (
         <div className="App">
-            <header>
-                <NavbarComponent />
-            </header>
-
             <main>
                 <Carousel>
                     <Carousel.Item>
