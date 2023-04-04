@@ -9,15 +9,25 @@ import axios from "axios";
 export default function Appointment() {
 
     const [appointments, setAppointments] = useState([]);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         axios.get('http://localhost:8000/appointments')
             .then(response => {
-                setAppointments(response.data);
+                const filteredAppointments = response.data.filter(appointment => appointment.patient_id === userId);
+                setAppointments(filteredAppointments);
             })
             .catch(error => {
                 console.log(error);
             });
+    }, []);
+
+    const getUserId = () => {
+        setUserId(userId);
+    };
+
+    useEffect(() => {
+        getUserId();
     }, []);
 
     const appointmentEvents = appointments.map(appointment => ({
