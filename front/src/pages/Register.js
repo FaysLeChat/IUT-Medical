@@ -16,11 +16,11 @@ export default function Register(){
         try {
             const response = (await axios.post("http://localhost:8000/register", person)).data;
             if (response.id === undefined) {
-                alert("échec de connexion");
+                alert("Echec de connexion!");
             } else {
-                alert(response.id);
+                alert("Votre utilisateur a été créé! (ID " + response.id + ")");
             }
-            setPerson({name: "", surname: "", password: "", email: ""});
+            setPerson({name: "", surname: "", password: "", email: "", patient_id: 1});
         } catch (e) {
             console.error("ERR", e);
         }
@@ -41,7 +41,7 @@ export default function Register(){
                                 <Form.Group className="mb-3" controlId="personName">
                                     <Form.Label>Nom</Form.Label>
                                     <Form.Control type="text" placeholder="Nom" value={person.surname}
-                                                  onChange={e => handleTextChange(e, "name")}/>
+                                                  onChange={e => handleTextChange(e, "surname")}/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="personSurname">
