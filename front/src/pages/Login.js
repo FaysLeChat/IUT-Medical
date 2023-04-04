@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import login from "../assets/img/login.png";
 
-export default function Login() {
+export default function Login(props) {
     const [person, setPerson] = useState({password: "", email: ""});
     const navigate = useNavigate();
 
@@ -19,7 +19,11 @@ export default function Login() {
             if (response.token === undefined) {
                 alert("Echec de connexion!");
             } else {
-                alert("Token: " + response.token);
+                props.setCookie("amigo", {
+                    email: person.email,
+                    token: response.token
+                }, "/");
+
                 window.location.replace("http://localhost:3000/");
             }
             setPerson({password: "", email: ""});
@@ -66,6 +70,8 @@ export default function Login() {
                                     />
                                 </Form.Group>
 
+                                <hr />
+
                                 <Button variant="primary" type="submit" className="w-100 mb-3">
                                     Se connecter
                                 </Button>
@@ -74,7 +80,7 @@ export default function Login() {
                                 S'inscrire
                             </Button>
                             <div className="text-center">
-                                <a href="/reset-password">Mot de passe oublié ?</a>
+                                <a href="/#reset-password">Mot de passe oublié ?</a>
                             </div>
                         </Col>
                     </Row>

@@ -8,7 +8,13 @@ import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar, faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
-function NavbarComponent() {
+function NavbarComponent(props) {
+    let email ;
+
+    if(props.cookie && props.cookie.amigo) {
+        email = props.cookie.amigo.email;
+    }
+
     return (
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
@@ -23,13 +29,23 @@ function NavbarComponent() {
                         </Nav>
                     </Navbar.Collapse>
                     <Nav>
-                        <Dropdown as={Nav.Item}>
-                            <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser} /> Compte</Dropdown.Toggle>
-                            <Dropdown.Menu align="end">
-                                <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        { email === undefined ? (
+                            <Dropdown as={Nav.Item}>
+                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> Invité</Dropdown.Toggle>
+                                <Dropdown.Menu align="end">
+                                    <Dropdown.Item as={Link} to="/login">Connexion</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/register">Inscription</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        ) : (
+                            <Dropdown as={Nav.Item}>
+                                <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> {email}</Dropdown.Toggle>
+                                <Dropdown.Menu align="end">
+                                    <Dropdown.Item as={Link} to="/profil">Profil</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => props.removeCookie("amigo")}>Se déconnecter</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        )}
                     </Nav>
                 </Container>
             </Navbar>

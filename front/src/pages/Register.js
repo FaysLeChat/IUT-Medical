@@ -1,6 +1,7 @@
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
+import login from "../assets/img/login.png";
 
 export default function Register(){
     const [person, setPerson] = useState({name: "", surname: "", password: "", email: ""});
@@ -16,8 +17,7 @@ export default function Register(){
             if (response.id === undefined) {
                 alert("Echec de connexion!");
             } else {
-                alert("Votre utilisateur a été créé! (ID " + response.id + ")");
-                window.location.replace("http://www.localhost:3000/");
+                window.location.replace("http://localhost:3000/login");
             }
             setPerson({name: "", surname: "", password: "", email: ""});
         } catch (e) {
@@ -28,41 +28,54 @@ export default function Register(){
     return (
         <div className="App">
             <main>
-                <Container>
-                    <div className="row justify-content-md-center">
-                        <div className="col col-lg-3">
-                            <h1 className="person-title">Créer un compte</h1>
+                <Container className="mt-5">
+                    <Row>
+                        <Col md={6}>
+                            <Image src={login} alt="Image d'inscription" fluid className="w-50 h-100"/>
+                        </Col>
+                        <Col md={6}>
+                            <h1>Inscription</h1>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="personName">
-                                    <Form.Label>Nom</Form.Label>
-                                    <Form.Control type="text" placeholder="Nom" value={person.surname}
-                                                  onChange={e => handleTextChange(e, "surname")}/>
-                                </Form.Group>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="personSurname">
+                                            <Form.Label>Prénom</Form.Label>
+                                            <Form.Control type="text" placeholder="Entrez votre prénom" value={person.name}
+                                                          onChange={e => handleTextChange(e, "name")} />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="personName">
+                                            <Form.Label>Nom</Form.Label>
+                                            <Form.Control type="text" placeholder="Entrez votre nom" value={person.surname}
+                                                          onChange={e => handleTextChange(e, "surname")} />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
 
-                                <Form.Group className="mb-3" controlId="personSurname">
-                                    <Form.Label>Prénom</Form.Label>
-                                    <Form.Control type="text" placeholder="Prénom" value={person.name}
-                                                  onChange={e => handleTextChange(e, "name")}/>
-                                </Form.Group>
-
-                                <Form.Group className="mb-3" controlId="personEmail">
+                                <Form.Group controlId="personEmail">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="text" placeholder="Email" value={person.email}
-                                                  onChange={e => handleTextChange(e, "email")}/>
+                                    <Form.Control type="email" placeholder="Entrez votre email" value={person.email}
+                                                  onChange={e => handleTextChange(e, "email")} />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="personPassword">
+                                <Form.Group controlId="personPassword">
                                     <Form.Label>Mot de passe</Form.Label>
-                                    <Form.Control type="password" placeholder="" value={person.password}
-                                                  onChange={e => handleTextChange(e, "password")}/>
+                                    <Form.Control type="password" placeholder="Entrez votre mot de passe" value={person.password}
+                                                  onChange={e => handleTextChange(e, "password")} />
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
-                                    OK
+                                <hr />
+
+                                <Button variant="primary" type="submit" className="w-100 mb-3">
+                                    S'inscrire
                                 </Button>
                             </Form>
-                        </div>
-                    </div>
+                            <div className="text-center">
+                                <a href="/login">Déjà un compte ? Connecte toi !</a>
+                            </div>
+                        </Col>
+                    </Row>
                 </Container>
             </main>
         </div>
