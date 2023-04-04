@@ -21,7 +21,7 @@ Table(doctors, "doctors") {
   FK(cabinet_id)
 }
 
-Table(cabinets, "cabinets") {
+Table("medicaloffice", "medicaloffice") {
   PK(id)
   --
   String name
@@ -48,7 +48,7 @@ Table(appointments, "appointments") {
 
 users "0..1" -- "1" patients
 users "0..1" -- "1" doctors
-doctors "n" -- "1" cabinets
+doctors "n" -- "1" medicaloffice
 patients "0" -- "n" doctors
 doctors "1" -- "n" appointments
 patients "1" -- "n" appointments
