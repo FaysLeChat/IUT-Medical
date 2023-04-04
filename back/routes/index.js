@@ -59,7 +59,7 @@ router.post("/login", (req, res) => {
             }
             const match = await bcrypt.compare(req.body.password, row.password);
             if (match) {
-                const token = jwt.sign({ id: row.id }, cfg.jwtSecret, { expiresIn: "1h" });
+                const token = jwt.sign({ id: row.id, patient_id: row.patient_id, doctor_id: row.doctor_id }, cfg.jwtSecret, { expiresIn: "1h" });
                 return res.json({ token: token });
             }
             res.json("bad password").status(401);
@@ -74,16 +74,6 @@ router.get('/doctors', (req, res) => {
       res.json(rows);
     }
   });
-});
-
-router.get('/user', (req, res) => {
-    db.all('SELECT * FROM users', (err, rows) => {
-        if (err) {
-            res.status(500).send(err.message);
-        } else {
-            res.json(rows);
-        }
-    });
 });
 
 module.exports = router;
