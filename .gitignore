@@ -41,3 +41,5 @@ yarn.lock
 !/back/server.js
 !/back/package.json
 !/back/README.md
+
+./.idea
