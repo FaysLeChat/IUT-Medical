@@ -1,8 +1,6 @@
 import {Button, Container, Form} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
-import NavbarComponent from "../components/NavbarComponent";
-
 
 export default function Register(){
     const [person, setPerson] = useState({name: "", surname: "", password: "", email: ""});
@@ -16,9 +14,10 @@ export default function Register(){
         try {
             const response = (await axios.post("http://localhost:8000/register", person)).data;
             if (response.id === undefined) {
-                alert("échec de connexion");
+                alert("Echec de connexion!");
             } else {
-                alert(response.id);
+                alert("Votre utilisateur a été créé! (ID " + response.id + ")");
+                window.location.replace("http://www.localhost:3000/");
             }
             setPerson({name: "", surname: "", password: "", email: ""});
         } catch (e) {
@@ -28,10 +27,6 @@ export default function Register(){
 
     return (
         <div className="App">
-            <header>
-                <NavbarComponent />
-            </header>
-
             <main>
                 <Container>
                     <div className="row justify-content-md-center">
@@ -41,7 +36,7 @@ export default function Register(){
                                 <Form.Group className="mb-3" controlId="personName">
                                     <Form.Label>Nom</Form.Label>
                                     <Form.Control type="text" placeholder="Nom" value={person.surname}
-                                                  onChange={e => handleTextChange(e, "name")}/>
+                                                  onChange={e => handleTextChange(e, "surname")}/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="personSurname">

@@ -1,8 +1,8 @@
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Container, Form, Row, Col, Image} from "react-bootstrap";
 import axios from "axios";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import NavbarComponent from "../components/NavbarComponent";
+import dr_amigo from "../assets/img/dr_amigo.png";
 
 export default function Login() {
     const [person, setPerson] = useState({password: "", email: ""});
@@ -17,9 +17,10 @@ export default function Login() {
         try {
             const response = (await axios.post("http://localhost:8000/login", person)).data;
             if (response.token === undefined) {
-                alert("échec de connexion");
+                alert("Echec de connexion!");
             } else {
-                alert(response.token);
+                alert("Token: " + response.token);
+                window.location.replace("http://localhost:3000/");
             }
             setPerson({password: "", email: ""});
         } catch (e) {
@@ -29,37 +30,54 @@ export default function Login() {
 
     return (
         <div className="App">
-            <header>
-                <NavbarComponent />
-            </header>
-
             <main>
-                <Container>
-                    <div className="row justify-content-md-center">
-                        <div className="col col-lg-3">
-                            <h1 className="person-title">Se connecter</h1>
+                <Container className="mt-5">
+                    <Row>
+                        <Col md={6}>
+                            <Image src={dr_amigo} alt="Image de connexion" fluid className="w-50 h-100"/>
+                        </Col>
+                        <Col md={6}>
+                            <h1>Connexion</h1>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="personEmail">
+                                <Form.Group controlId="personEmail">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="text" placeholder="Adresse email" value={person.email}
-                                                  onChange={e => handleTextChange(e, "email")}/>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Entrez votre email"
+                                        value={person.email}
+                                        onChange={e => handleTextChange(e, "email")}
+                                    />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="personPassword">
+                                <Form.Group controlId="personPassword">
                                     <Form.Label>Mot de passe</Form.Label>
-                                    <Form.Control type="password" placeholder="" value={person.password}
-                                                  onChange={e => handleTextChange(e, "password")}/>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Entrez votre mot de passe"
+                                        value={person.password}
+                                        onChange={e => handleTextChange(e, "password")}
+                                    />
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
-                                    OK
-                                </Button>{"  "}
-                                <Button variant="primary" type="button" onClick={() => navigate("/register")}>
-                                    Créer un compte
+                                <Form.Group controlId="formRememberMe">
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="Se souvenir de moi"
+                                    />
+                                </Form.Group>
+
+                                <Button variant="primary" type="submit" className="w-100 mb-3">
+                                    Se connecter
                                 </Button>
                             </Form>
-                        </div>
-                    </div>
+                            <Button variant="secondary" className="w-100 mb-3" onClick={() => navigate("/register")}>
+                                S'inscrire
+                            </Button>
+                            <div className="text-center">
+                                <a href="/reset-password">Mot de passe oublié ?</a>
+                            </div>
+                        </Col>
+                    </Row>
                 </Container>
             </main>
         </div>
