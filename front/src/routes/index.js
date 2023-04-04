@@ -9,12 +9,12 @@ import Appointment from "../pages/Appointment";
 import NavbarComponent from "../components/NavbarComponent";
 import FooterComponent from "../components/FooterComponent";
 
-const AppRoutes = () => (
+const AppRoutes = (props) => (
     <BrowserRouter>
         <NavbarComponent />
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setCookie={props.setCookie} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/appointment" element={<Appointment />} />
             <Route path="*" element={<NotFound />} />
