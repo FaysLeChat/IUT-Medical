@@ -168,4 +168,74 @@ router.post('/appointments', (req, res) => {
     );
 });
 
+/* DELETE endpoints */
+
+router.delete('/medicaloffices/:id', (req, res) => {
+    const id = req.params.id;
+    db.run(
+        "DELETE FROM medicaloffice WHERE id = ?",
+        id,
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send("Not found");
+            } else {
+                res.send("Deleted");
+            }
+        }
+    );
+});
+
+router.delete('/doctors/:id', (req, res) => {
+    const id = req.params.id;
+    db.run(
+        "DELETE FROM doctors WHERE id = ?",
+        id,
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send("Not found");
+            } else {
+                res.send("Deleted");
+            }
+        }
+    );
+});
+
+router.delete('/patients/:id', (req, res) => {
+    const id = req.params.id;
+    db.run(
+        "DELETE FROM patients WHERE id = ?",
+        id,
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send("Not found");
+            } else {
+                res.send("Deleted");
+            }
+        }
+    );
+});
+
+router.delete('/appointments/:id', (req, res) => {
+    const id = req.params.id;
+    db.run(
+        "DELETE FROM appointments WHERE id = ?",
+        id,
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send("Not found");
+            } else {
+                res.send("Deleted");
+            }
+        }
+    );
+});
+
 module.exports = router;
