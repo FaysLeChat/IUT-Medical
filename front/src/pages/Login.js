@@ -2,7 +2,7 @@ import {Button, Container, Form, Row, Col, Image} from "react-bootstrap";
 import axios from "axios";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import dr_amigo from "../assets/img/dr_amigo.png";
+import login from "../assets/img/login.png";
 
 export default function Login() {
     const [person, setPerson] = useState({password: "", email: ""});
@@ -34,7 +34,7 @@ export default function Login() {
                 <Container className="mt-5">
                     <Row>
                         <Col md={6}>
-                            <Image src={dr_amigo} alt="Image de connexion" fluid className="w-50 h-100"/>
+                            <Image src={login} alt="Image de connexion" fluid className="w-50 h-100"/>
                         </Col>
                         <Col md={6}>
                             <h1>Connexion</h1>
