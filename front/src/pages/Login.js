@@ -74,7 +74,7 @@ export default function Login() {
                                 S'inscrire
                             </Button>
                             <div className="text-center">
-                                <a href="/reset-password">Mot de passe oublié ?</a>
+                                <a href="/#reset-password">Mot de passe oublié ?</a>
                             </div>
                         </Col>
                     </Row>
