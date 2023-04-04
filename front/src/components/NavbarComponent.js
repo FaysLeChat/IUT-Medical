@@ -6,13 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendar, faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
 function NavbarComponent(props) {
     let email ;
 
     if(props.cookie && props.cookie.amigo) {
         email = props.cookie.amigo.email;
+        console.log(props);
     }
 
     return (
@@ -24,7 +25,6 @@ function NavbarComponent(props) {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/"><FontAwesomeIcon icon={faHome} /> Accueil</Nav.Link>
-                            <Nav.Link as={Link} to="/appointment"><FontAwesomeIcon icon={faCalendar} /> Rendez-vous</Nav.Link>
                             <Nav.Link as={Link} to="/contact"><FontAwesomeIcon icon={faEnvelope} /> Contact</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
@@ -41,7 +41,10 @@ function NavbarComponent(props) {
                             <Dropdown as={Nav.Item}>
                                 <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> {email}</Dropdown.Toggle>
                                 <Dropdown.Menu align="end">
-                                    <Dropdown.Item as={Link} to="/profil">Profil</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/profile">Profil</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/appointment">Mes rendez-vous</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/profile" disabled="true">Panneau des médecins</Dropdown.Item>
+                                    <hr />
                                     <Dropdown.Item onClick={() => props.removeCookie("amigo")}>Se déconnecter</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
