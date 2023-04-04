@@ -22,9 +22,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get("/home", auth.authenticate() ,(req, res) => {
-  res.json( "Hello world !!!!");
-});
+/* Login et register. */
 
 router.post("/register", (req, res) => {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
@@ -66,24 +64,46 @@ router.post("/login", (req, res) => {
         })
 })
 
+/* GET endpoints */
+
+router.get('/medicaloffices', (req, res) => {
+    db.all('SELECT * FROM medicaloffice', (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 router.get('/doctors', (req, res) => {
-  db.all('SELECT * FROM doctors', (err, rows) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.json(rows);
-    }
-  });
+    db.all('SELECT * FROM doctors', (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+router.get('/patients', (req, res) => {
+    db.all('SELECT * FROM patients', (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
 });
 
 router.get('/appointments', (req, res) => {
-  db.all('SELECT * FROM appointments', (err, rows) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.json(rows);
-    }
-  });
+    db.all('SELECT * FROM appointments', (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
 });
 
 module.exports = router;
