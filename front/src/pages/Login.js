@@ -17,9 +17,10 @@ export default function Login() {
         try {
             const response = (await axios.post("http://localhost:8000/login", person)).data;
             if (response.token === undefined) {
-                alert("échec de connexion");
+                alert("Echec de connexion!");
             } else {
-                alert(response.token);
+                alert("Token: " + response.token);
+                window.location.replace("http://www.localhost:3000/");
             }
             setPerson({password: "", email: ""});
         } catch (e) {
