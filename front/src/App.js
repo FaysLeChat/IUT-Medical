@@ -3,11 +3,11 @@ import AppRoutes from './routes';
 import {useCookies} from "react-cookie";
 
 const App = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(["fullmedicalalchemist"]);
+    const [cookies, setCookie, removeCookie] = useCookies(["amigo"]);
 
     return (
         <div className="App">
-            <AppRoutes />
+            <AppRoutes setCookie={setCookie} />
         </div>
     );
 };
