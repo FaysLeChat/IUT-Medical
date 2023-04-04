@@ -6,7 +6,6 @@ import '../App.css';
 import cbanner1 from '../assets/img/cbanner1.jpg';
 import cbanner2 from '../assets/img/cbanner2.png';
 import NavbarComponent from "../components/NavbarComponent";
-import FooterComponent from "../components/FooterComponent";
 import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -101,8 +100,6 @@ const Home = () => {
                         </Col>
                     </Row>
                 </Container>
-
-                <FooterComponent />
             </main>
         </div>
     );
