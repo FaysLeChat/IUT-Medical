@@ -16,7 +16,6 @@ export default function Register(){
             if (response.id === undefined) {
                 alert("Echec de connexion!");
             } else {
-                alert("Votre utilisateur a été créé! (ID " + response.id + ")");
                 window.location.replace("http://localhost:3000/");
             }
             setPerson({name: "", surname: "", password: "", email: ""});
