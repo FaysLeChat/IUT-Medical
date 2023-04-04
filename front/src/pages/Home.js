@@ -7,8 +7,10 @@ import cbanner1 from '../assets/img/cbanner1.jpg';
 import cbanner2 from '../assets/img/cbanner2.png';
 import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <div className="App">
             <main>
@@ -25,7 +27,7 @@ const Home = () => {
                         <Carousel.Caption>
                             <h3>Un rendez-vous à prendre ?</h3>
                             <p>Avec ce site prend ton rendez-vous facilement avec ton médecin en quelques cliques seulement !</p>
-                            <button type="button" className="rounded-pill mt-3 btn btn-primary">Prendre rendez-vous</button>
+                            <button type="button" className="rounded-pill mt-3 btn btn-primary" onClick={() => navigate("/appointment")}>Prendre rendez-vous</button>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
