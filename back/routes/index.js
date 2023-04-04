@@ -168,4 +168,12 @@ router.post('/appointments', (req, res) => {
     );
 });
 
+router.get("/appointments/:id",(req,res)=>
+{db.get("select * from appointments where id=?",
+    req.params.id,(err,row)=>{res.json(row)})})
+
+router.delete("/appointments/:id",(req,res)=>
+{db.get("delete from appointments where id=?",
+    req.params.id,(err,row)=>{res.json(row)})})
+
 module.exports = router;
