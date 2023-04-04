@@ -3,10 +3,13 @@ import axios from "axios";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import login from "../assets/img/login.png";
+import {useCookies} from "react-cookie";
 
-export default function Login(props) {
+export default function Login() {
     const [person, setPerson] = useState({password: "", email: ""});
     const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
+    const [cookies, setCookie] = useCookies(['amigo']);
 
     function handleTextChange(e, label) {
         setPerson({...person, [label]: e.target.value})
@@ -14,22 +17,20 @@ export default function Login(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        try {
             const response = (await axios.post("http://localhost:8000/login", person)).data;
-            if (response.token === undefined) {
-                alert("Echec de connexion!");
-            } else {
-                props.setCookie("amigo", {
+            if (response.token !== undefined) {
+                setCookie("amigo", {
                     email: person.email,
                     token: response.token
-                }, "/");
+                }, {path: '/'});
 
-                window.location.replace("http://localhost:3000/");
+                alert("Token: " + response.token);
+
+                // window.location.replace("http://localhost:3000/");
+            } else {
+                console.log("Echec de connexion");
             }
             setPerson({password: "", email: ""});
-        } catch (e) {
-            console.error("ERR", e);
-        }
     }
 
     return (
@@ -69,6 +70,8 @@ export default function Login(props) {
                                         label="Se souvenir de moi"
                                     />
                                 </Form.Group>
+
+                                <hr />
 
                                 <Button variant="primary" type="submit" className="w-100 mb-3">
                                     Se connecter
