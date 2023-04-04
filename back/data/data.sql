@@ -15,25 +15,25 @@ CREATE TABLE medicaloffice (
 CREATE TABLE doctors (
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          description TEXT NOT NULL,
-                         medicaloffice_id INTEGER NOT NULL,
-                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id)
+                         medicaloffice_id INTEGER,
+                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE patients (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           birthdate DATE NOT NULL,
-                          doctor_id INTEGER NOT NULL,
-                          FOREIGN KEY (doctor_id) REFERENCES doctors (id)
+                          doctor_id INTEGER,
+                          FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE appointments (
                               id INTEGER PRIMARY KEY AUTOINCREMENT,
                               start_time DATETIME NOT NULL,
                               end_time DATETIME NOT NULL,
-                              doctor_id INTEGER NOT NULL,
-                              patient_id INTEGER NOT NULL,
-                              FOREIGN KEY (doctor_id) REFERENCES doctors (id),
-                              FOREIGN KEY (patient_id) REFERENCES patients (id)
+                              doctor_id INTEGER,
+                              patient_id INTEGER,
+                              FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL,
+                              FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE users (
@@ -44,8 +44,8 @@ CREATE TABLE users (
                        password TEXT NOT NULL,
                        patient_id INTEGER,
                        doctor_id INTEGER,
-                       FOREIGN KEY (patient_id) REFERENCES patients (id),
-                       FOREIGN KEY (doctor_id) REFERENCES doctors (id)
+                       FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL,
+                       FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL
 );
 
 INSERT INTO medicaloffice (name, address, city, postal_code) VALUES
