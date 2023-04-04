@@ -17,7 +17,7 @@ export default function Register(){
             if (response.id === undefined) {
                 alert("Echec de connexion!");
             } else {
-                window.location.replace("http://localhost:3000/");
+                window.location.replace("http://localhost:3000/login");
             }
             setPerson({name: "", surname: "", password: "", email: ""});
         } catch (e) {
