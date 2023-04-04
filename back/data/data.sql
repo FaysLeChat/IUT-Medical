@@ -16,14 +16,14 @@ CREATE TABLE doctors (
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          description TEXT NOT NULL,
                          medicaloffice_id INTEGER,
-                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id) ON DELETE SET NULL
+                         FOREIGN KEY (medicaloffice_id) REFERENCES medicaloffice (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE patients (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           birthdate DATE NOT NULL,
                           doctor_id INTEGER,
-                          FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL
+                          FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE appointments (
@@ -32,8 +32,8 @@ CREATE TABLE appointments (
                               end_time DATETIME NOT NULL,
                               doctor_id INTEGER,
                               patient_id INTEGER,
-                              FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL,
-                              FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL
+                              FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL,
+                              FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE users (

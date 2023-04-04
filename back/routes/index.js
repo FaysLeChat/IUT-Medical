@@ -1,10 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+const app = express();
 const sqlite3 = require('sqlite3').verbose();
 
-const app = express();
-const db = new sqlite3.Database('data/data.db');
+const db = new sqlite3.Database('data/data.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+    if (err) {
+        console.error(err.message);
+    } else {
+        console.log('Connected to the SQLite database.');
+    }
+});
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -237,5 +243,84 @@ router.delete('/appointments/:id', (req, res) => {
         }
     );
 });
+
+/* PUT endpoints */
+
+router.put('/medicaloffices/:id', (req, res) => {
+    const id = req.params.id;
+    const { name, address, city, postal_code } = req.body;
+
+    db.run(
+        'UPDATE medicaloffice SET name=?, address=?, city=?, postal_code=? WHERE id=?',
+        [name, address, city, postal_code, id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send(`Medical office with ID ${id} not found.`);
+            } else {
+                res.sendStatus(204);
+            }
+        }
+    );
+});
+
+router.put('/doctors/:id', (req, res) => {
+    const id = req.params.id;
+    const { description, medicaloffice_id } = req.body;
+
+    db.run(
+        'UPDATE doctors SET description=?, medicaloffice_id=? WHERE id=?',
+        [description, medicaloffice_id, id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send(`Doctor with ID ${id} not found.`);
+            } else {
+                res.sendStatus(204);
+            }
+        }
+    );
+});
+
+router.put('/patients/:id', (req, res) => {
+    const id = req.params.id;
+    const { birthdate, doctor_id } = req.body;
+
+    db.run(
+        'UPDATE patients SET birthdate=?, doctor_id=? WHERE id=?',
+        [birthdate, doctor_id, id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send(`Patient with ID ${id} not found.`);
+            } else {
+                res.sendStatus(204);
+            }
+        }
+    );
+});
+
+router.put('/appointments/:id', (req, res) => {
+    const id = req.params.id;
+    const { start_time, end_time, doctor_id, patient_id } = req.body;
+
+    db.run(
+        'UPDATE appointments SET start_time=?, end_time=?, doctor_id=?, patient_id=? WHERE id=?',
+        [start_time, end_time, doctor_id, patient_id, id],
+        function (err) {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (this.changes === 0) {
+                res.status(404).send(`Appointment with ID ${id} not found.`);
+            } else {
+                res.sendStatus(204);
+            }
+        }
+    );
+});
+
 
 module.exports = router;
