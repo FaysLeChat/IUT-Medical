@@ -8,15 +8,17 @@ import Register from "../pages/Register";
 import Appointment from "../pages/Appointment";
 import NavbarComponent from "../components/NavbarComponent";
 import FooterComponent from "../components/FooterComponent";
+import Profile from "../pages/Profile";
 
 const AppRoutes = (props) => (
     <BrowserRouter>
         <NavbarComponent cookie={props.cookies} removeCookie={props.removeCookie}/>
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home cookie={props.cookies} />} />
             <Route path="/login" element={<Login setCookie={props.setCookie} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/appointment" element={<Appointment />} />
+            <Route path="/profile" element={<Profile cookie={props.cookies} />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
         <FooterComponent />
