@@ -22,7 +22,7 @@ const AppRoutes = (props) => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/appointment" element={<Appointment cookie={props.cookies} />} />
             <Route path="/profile" element={<Profile cookie={props.cookies} />} />
-            <Route path="/newAppointment" element={<NewAppointment/>} />
+            <Route path="/newAppointment" element={<NewAppointment cookie={props.cookies}/>} />
             <Route path="*" element={<NotFound />} />
         </Routes>
         <FooterComponent />
