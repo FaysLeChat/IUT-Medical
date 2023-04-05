@@ -30,8 +30,10 @@ CREATE TABLE appointments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     start_time DATETIME NOT NULL,
     end_time DATETIME NOT NULL,
+    user_id INTEGER,
     doctor_id INTEGER,
     patient_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES user_id (id) ON DELETE SET NULL ON UPDATE SET NULL,
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL,
     FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
@@ -63,11 +65,11 @@ INSERT INTO patients (birthdate, doctor_id) VALUES
     ('1970-12-31', 1),
     ('1995-06-15', 2);
 
-INSERT INTO appointments (start_time, end_time, doctor_id, patient_id) VALUES
-    ('05/04/2023 09:00', '05/04/2023 10:00', 1, 1),
-    ('06/04/2023 14:30', '06/04/2023 15:30', 2, 2),
-    ('07/04/2023 11:00', '07/04/2023 12:00', 1, 3),
-    ('08/04/2023 16:00', '08/04/2023 17:00', 2, 4);
+INSERT INTO appointments (start_time, end_time, user_id, doctor_id, patient_id) VALUES
+    ('05/04/2023 09:00', '05/04/2023 10:00', 5, 1, 1),
+    ('06/04/2023 14:30', '06/04/2023 15:30', 5, 2, 2),
+    ('07/04/2023 11:00', '07/04/2023 12:00', 6, 1, 3),
+    ('08/04/2023 16:00', '08/04/2023 17:00', 6, 2, 4);
 
 INSERT INTO users (name, surname, email, password, registration_date, patient_id, doctor_id) VALUES
     ('John', 'Doe', 'john.doe@example.com', 'password', NULL, 1, NULL),
