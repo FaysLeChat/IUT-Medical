@@ -20,7 +20,7 @@ const AppRoutes = (props) => (
             <Route path="/login" element={<Login setCookie={props.setCookie} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/appointment" element={<Appointment />} />
+            <Route path="/appointment" element={<Appointment cookie={props.cookies} />} />
             <Route path="/profile" element={<Profile cookie={props.cookies} />} />
             <Route path="/newAppointment" element={<NewAppointment/>} />
             <Route path="*" element={<NotFound />} />
