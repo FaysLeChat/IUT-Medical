@@ -5,29 +5,20 @@ import timeGridWeek from '@fullcalendar/timegrid';
 import frLocale from '@fullcalendar/core/locales/fr';
 import {Container} from "react-bootstrap";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 export default function Appointment() {
 
     const [appointments, setAppointments] = useState([]);
-    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         axios.get('http://localhost:8000/appointments')
             .then(response => {
-                const filteredAppointments = response.data.filter(appointment => appointment.patient_id === userId);
-                setAppointments(filteredAppointments);
+                setAppointments(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
-    }, []);
-
-    const getUserId = () => {
-        setUserId(userId);
-    };
-
-    useEffect(() => {
-        getUserId();
     }, []);
 
     const appointmentEvents = appointments.map(appointment => ({
@@ -62,20 +53,25 @@ export default function Appointment() {
         }
     };
 
-        return (
-            <div className="App">
-                <main>
-                    <Container className="mt-5">
-                        <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
-                                      initialView="timeGridWeek"
-                                      events={appointmentEvents}
-                                      editable={true}
-                                      droppable={true}
-                                      locale={frLocale}
-                                      eventClick={handleEventDelete}
-                        />
-                    </Container>
-                </main>
-            </div>
-        )
+    return (
+        <div className="App">
+            <main>
+                <Container className="mt-5">
+                    <div className="d-flex justify-content-between mb-3">
+                        <Link to="/newAppointment" className="btn btn-primary mb-3">
+                            Ajouter un rendez-vous
+                        </Link>
+                    </div>
+                    <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
+                                  initialView="timeGridWeek"
+                                  events={appointmentEvents}
+                                  editable={true}
+                                  droppable={true}
+                                  locale={frLocale}
+                                  eventClick={handleEventDelete}
+                    />
+                </Container>
+            </main>
+        </div>
+    )
 }
