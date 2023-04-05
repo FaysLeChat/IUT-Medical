@@ -27,3 +27,12 @@ export async function isDoctorByEmail(email) {
         console.error(`Error fetching user info: ${error.message}`);
     }
 }
+
+export const getAppointmentsByEmail = async (email) => {
+    try {
+        const response = await axios.get(`${API_URL}appointments/${email}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching appointments: ${error}`);
+    }
+};

@@ -24,7 +24,7 @@ export default function Login(props) {
                     token: response.token
                 }, "/");
 
-                window.location.replace("http://localhost:3000/");
+                window.location.replace("http://localhost:3000/profile");
             }
             setPerson({password: "", email: ""});
         } catch (e) {
