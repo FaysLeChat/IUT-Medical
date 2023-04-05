@@ -64,14 +64,14 @@ export default function Register(){
                                     <Col>
                                         <Form.Group controlId="personSurname">
                                             <Form.Label>Prénom</Form.Label>
-                                            <Form.Control type="text" placeholder="Entrez votre prénom" value={person.name}
+                                            <Form.Control name="surname" type="text" placeholder="Entrez votre prénom" value={person.name}
                                                           onChange={e => handleTextChange(e, "name")} />
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group controlId="personName">
                                             <Form.Label>Nom</Form.Label>
-                                            <Form.Control type="text" placeholder="Entrez votre nom" value={person.surname}
+                                            <Form.Control name="name" type="text" placeholder="Entrez votre nom" value={person.surname}
                                                           onChange={e => handleTextChange(e, "surname")} />
                                         </Form.Group>
                                     </Col>
@@ -79,13 +79,13 @@ export default function Register(){
 
                                 <Form.Group controlId="personEmail">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Entrez votre email" value={person.email}
+                                    <Form.Control name="email" type="email" placeholder="Entrez votre email" value={person.email}
                                                   onChange={e => handleTextChange(e, "email")} />
                                 </Form.Group>
 
                                 <Form.Group controlId="personPassword">
                                     <Form.Label>Mot de passe</Form.Label>
-                                    <Form.Control type="password" placeholder="Entrez votre mot de passe" value={person.password}
+                                    <Form.Control name="password" type="password" placeholder="Entrez votre mot de passe" value={person.password}
                                                   onChange={e => handleTextChange(e, "password")} />
                                 </Form.Group>
 
