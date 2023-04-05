@@ -42,6 +42,7 @@ export default function Appointment(props) {
         start: appointment.start_time,
         end: appointment.end_time,
         id: appointment.id,
+        user_id: appointment.user_id,
         doctor_id: appointment.doctor_id,
         patient_id: appointment.patient_id
     }));
@@ -76,6 +77,7 @@ export default function Appointment(props) {
             id: eventInfo.event.id,
             start_time: eventInfo.event.start,
             end_time: eventInfo.event.end,
+            user_id: eventInfo.event.extendedProps.user_id,
             doctor_id: eventInfo.event.extendedProps.doctor_id,
             patient_id: eventInfo.event.extendedProps.patient_id
         };

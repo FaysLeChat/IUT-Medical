@@ -238,10 +238,10 @@ router.post('/patients', (req, res) => {
 });
 
 router.post('/appointments', (req, res) => {
-    const { start_time, end_time, doctor_id, patient_id } = req.body;
+    const { start_time, end_time, user_id, doctor_id, patient_id } = req.body;
     db.run(
-        "INSERT INTO appointments (start_time, end_time, doctor_id, patient_id) VALUES (?, ?, ?, ?)",
-        [start_time, end_time, doctor_id, patient_id],
+        "INSERT INTO appointments (start_time, end_time, user_id, doctor_id, patient_id) VALUES (?, ?, ?, ?, ?)",
+        [start_time, end_time, user_id, doctor_id, patient_id],
         function (err) {
             if (err) {
                 res.status(500).send(err.message);
@@ -383,11 +383,11 @@ router.put('/patients/:id', (req, res) => {
 
 router.put('/appointments/:id', (req, res) => {
     const id = req.params.id;
-    const { start_time, end_time, doctor_id, patient_id } = req.body;
+    const { start_time, end_time, user_id, doctor_id, patient_id } = req.body;
 
     db.run(
-        'UPDATE appointments SET start_time=?, end_time=?, doctor_id=?, patient_id=? WHERE id=?',
-        [start_time, end_time, doctor_id, patient_id, id],
+        'UPDATE appointments SET start_time=?, end_time=?, user_id=?, doctor_id=?, patient_id=? WHERE id=?',
+        [start_time, end_time, user_id, doctor_id, patient_id, id],
         function (err) {
             if (err) {
                 res.status(500).send(err.message);
@@ -405,7 +405,7 @@ router.put('/users/:id', (req, res) => {
     const { name, surname, email, password, patient_id, doctor_id } = req.body;
 
     db.run(
-        'UPDATE appointments SET name=?, surname=?, email=?, password=?, patient_id=?, doctor_id=? WHERE id=?',
+        'UPDATE users SET name=?, surname=?, email=?, password=?, patient_id=?, doctor_id=? WHERE id=?',
         [name, surname, email, password, patient_id, doctor_id],
         function (err) {
             if (err) {
