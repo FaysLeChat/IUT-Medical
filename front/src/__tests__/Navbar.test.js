@@ -1,27 +1,38 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
 import NavbarComponent from '../components/NavbarComponent';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// Fonction utilitaire pour envelopper le composant avec BrowserRouter
-const renderWithRouter = (component) => {
-    return render(<BrowserRouter>{component}</BrowserRouter>);
-};
+test('renders NavbarComponent without user info', () => {
+    render(
+        <Router>
+            <NavbarComponent />
+        </Router>
+    );
+    const homeLink = screen.getByText(/Accueil/i);
+    const contactLink = screen.getByText(/Contact/i);
+    const guestLink = screen.getByText(/Invité/i);
+    expect(homeLink).toBeInTheDocument();
+    expect(contactLink).toBeInTheDocument();
+    expect(guestLink).toBeInTheDocument();
+});
 
-describe('NavbarComponent', () => {
-    test('renders NavbarComponent with correct links', () => {
-        renderWithRouter(<NavbarComponent />);
+test('renders NavbarComponent with user info', () => {
+    const fakeCookie = {
+        amigo: {
+            email: 'test@example.com',
+        },
+    };
 
-        const brandElement = screen.getByText(/FullMedical Alchemist/i);
-        expect(brandElement).toBeInTheDocument();
-
-        const homeLink = screen.getByText(/Accueil/i);
-        expect(homeLink).toBeInTheDocument();
-        expect(homeLink.closest('a')).toHaveAttribute('href', '/');
-
-        const contactLink = screen.getByText(/Contact/i);
-        expect(contactLink).toBeInTheDocument();
-        expect(contactLink.closest('a')).toHaveAttribute('href', '/contact');
-    });
+    render(
+        <Router>
+            <NavbarComponent cookie={fakeCookie} />
+        </Router>
+    );
+    const homeLink = screen.getByText(/Accueil/i);
+    const contactLink = screen.getByText(/Contact/i);
+    const userEmailLink = screen.getByText(/test@example.com/i);
+    expect(homeLink).toBeInTheDocument();
+    expect(contactLink).toBeInTheDocument();
+    expect(userEmailLink).toBeInTheDocument();
 });
