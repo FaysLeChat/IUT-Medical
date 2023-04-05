@@ -7,12 +7,13 @@ import {Container} from "react-bootstrap";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-export default function Appointment() {
-
+export default function Appointment(props) {
+    const amigo = props.cookie.amigo;
+    const email = amigo && amigo.email;
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/appointments')
+        axios.get(`http://localhost:8000/appointments/${email}`)
             .then(response => {
                 setAppointments(response.data);
             })

@@ -179,6 +179,17 @@ router.get('/appointments', (req, res) => {
     });
 });
 
+router.get('/appointments/:email', (req, res) => {
+    const email = req.params.email;
+    db.all('SELECT * FROM appointments WHERE user_id = (SELECT id FROM users WHERE email = ?)', email, (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 /* POST endpoints */
 
 router.post('/medicaloffices', (req, res) => {
