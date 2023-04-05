@@ -8,16 +8,26 @@ export default function NewAppointment(props){
     const amigo = props.cookie.amigo;
     const email = amigo && amigo.email;
     const [userInfo, setUserInfo] = useState(null);
+    const [doctors, setDoctors] = useState([]);
+    const [patient, setPatient] = useState([]);
     const [newAppointment, setNewAppointment] = useState({start_time: "", end_time: "", user_id: 0, doctor_id: 0, patient_id: 0});
 
 
     useEffect(() => {
+        fetch('http://localhost:8000/doctors/nameandid')
+            .then(response => response.json())
+            .then(data => setDoctors(data))
+            .catch(error => console.error(error));
+        fetch('http://localhost:8000/patients')
+            .then(response => response.json())
+            .then(data => setPatient(data))
+            .catch(error => console.error(error));
         async function fetchData() {
             const fetchedUserInfo = await getUserByEmail(email);
             setUserInfo(fetchedUserInfo);
         }
         fetchData();
-    }, [email]);
+    }, []);
     const handleTextChange = (event, type) => {
         const value = type === 'number' ? Number(event.target.value) : event.target.value;
         setNewAppointment({ ...newAppointment, [event.target.name]: value, user_id: userInfo && userInfo.id });
@@ -67,8 +77,15 @@ export default function NewAppointment(props){
                                 </Row>
 
                                 <Form.Group controlId="appointmentDoctorId">
-                                    <Form.Label>Identifiant du docteur</Form.Label>
-                                    <Form.Control type="number" name="doctor_id" placeholder="Identifiant du docteur" value={newAppointment.doctor_id} onChange={(e) => handleTextChange(e, 'number')} />
+                                    <Form.Label>Docteur</Form.Label>
+                                    <Form.Control as="select" name="doctor_id" onChange={(e) => handleTextChange(e)}>
+                                        <option value="">Sélectionner un docteur</option>
+                                        {doctors.map((doctor) => (
+                                            <option key={doctor.id} value={doctor.id}>
+                                                {doctor.name}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="appointmentPatientId">
                                     <Form.Label>Identifiant du patient</Form.Label>

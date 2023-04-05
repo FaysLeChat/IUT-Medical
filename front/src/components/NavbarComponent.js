@@ -1,20 +1,39 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
+import {getUserByEmail, isDoctorByEmail} from "../services/userService";
 
 function NavbarComponent(props) {
     let email ;
+    const [userInfo, setUserInfo] = useState(null);
+    const [isDoctor, setIsDoctor] = useState(null);
 
     if(props.cookie && props.cookie.amigo) {
         email = props.cookie.amigo.email;
-        console.log(props);
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (props.cookie?.amigo?.email) {
+                const fetchedUserInfo = await getUserByEmail(email);
+                setUserInfo(fetchedUserInfo);
+            }
+        }
+        async function checkDoctorStatus() {
+            const isDoctorResult = await isDoctorByEmail(email);
+            setIsDoctor(isDoctorResult);
+        }
+        checkDoctorStatus();
+        (async () => {
+            await fetchData();
+        })();
+    }, [email]);
 
     return (
         <>
@@ -42,8 +61,10 @@ function NavbarComponent(props) {
                                 <Dropdown.Toggle as={Nav.Link}><FontAwesomeIcon icon={faUser}/> {email}</Dropdown.Toggle>
                                 <Dropdown.Menu align="end">
                                     <Dropdown.Item as={Link} to="/profile">Profil</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/appointment">Mes rendez-vous</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/profile" disabled="true">Panneau des médecins</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/appointment">Calendrier</Dropdown.Item>
+                                    {isDoctor && (
+                                        <Dropdown.Item as={Link} to="/profile" disabled="true">Panneau des médecins</Dropdown.Item>
+                                    )}
                                     <hr />
                                     <Dropdown.Item onClick={() => props.removeCookie("amigo")}>Se déconnecter</Dropdown.Item>
                                 </Dropdown.Menu>

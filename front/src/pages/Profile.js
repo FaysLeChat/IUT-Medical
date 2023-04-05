@@ -11,18 +11,21 @@ import {
     faCalendar,
     faGear,
     faKey,
-    faMailForward,
+    faMailForward, faPlus,
     faTrash,
     faUser,
     faUserDoctor
 } from "@fortawesome/free-solid-svg-icons";
-import {getUserByEmail, isDoctorByEmail} from "../services/userService";
+import {getAppointmentsByEmail, getUserByEmail, isDoctorByEmail} from "../services/userService";
+import {useNavigate} from "react-router-dom";
 
 const Profile = (props) => {
+    const navigate = useNavigate();
     const amigo = props.cookie.amigo;
     const email = amigo && amigo.email;
     const [userInfo, setUserInfo] = useState(null);
     const [isDoctor, setIsDoctor] = useState(null);
+    const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,6 +36,11 @@ const Profile = (props) => {
             const isDoctorResult = await isDoctorByEmail(email);
             setIsDoctor(isDoctorResult);
         }
+        async function fetchAppointments() {
+            const fetchedAppointments = await getAppointmentsByEmail(email);
+            setAppointments(fetchedAppointments);
+        }
+        fetchAppointments();
         checkDoctorStatus();
         fetchData();
     }, [email]);
@@ -85,8 +93,8 @@ const Profile = (props) => {
                                                         <strong>Pays :</strong> France
                                                     </ListGroupItem>
                                                     <ListGroupItem>
-                                                        <Button variant="primary" className="rounded-pill mt-3"><FontAwesomeIcon icon={faKey} /> Changer mon mot-de-passe</Button>
-                                                        <Button variant="warning" className="rounded-pill mt-3"><FontAwesomeIcon icon={faMailForward} /> Changer mon adresse e-mail</Button>
+                                                        <Button variant="primary" className="rounded-pill mt-3" disabled="true"><FontAwesomeIcon icon={faKey} /> Changer mon mot-de-passe</Button>
+                                                        <Button variant="warning" className="rounded-pill mt-3" disabled="true"><FontAwesomeIcon icon={faMailForward} /> Changer mon adresse e-mail</Button>
                                                     </ListGroupItem>
                                                 </ListGroup>
                                             </Col>
@@ -121,52 +129,50 @@ const Profile = (props) => {
                                     <Card.Body>
                                         <Row>
                                             <Col className="text-center">
-                                                <Button variant="danger" className="rounded-pill mt-3"><FontAwesomeIcon icon={faTrash} /> Supprimer mon compte</Button>
+                                                <Button variant="danger" className="rounded-pill mt-3" disabled="true"><FontAwesomeIcon icon={faTrash} /> Supprimer mon compte</Button>
                                             </Col>
                                         </Row>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-                        <Row className="justify-content-center mt-5">
-                            <Col>
-                                <Card>
-                                    <Card.Header>
-                                        <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Row>
-                                            <Col>
-                                                <Table striped bordered hover size="sm">
-                                                    <thead>
+                        {!isDoctor && (
+                            <Row className="justify-content-center mt-5">
+                                <Col>
+                                    <Card>
+                                        <Card.Header>
+                                            <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <Row>
+                                                <Col>
+                                                    <Table striped bordered hover size="sm">
+                                                        <thead>
                                                         <tr>
-                                                            <th>Date</th>
-                                                            <th>Heure</th>
-                                                            <th>Docteur</th>
-                                                            <th>Spécialité</th>
+                                                            <th>Début</th>
+                                                            <th>Fin</th>
+                                                            <th>Avec le docteur</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>01/05/2023</td>
-                                                            <td>14:00</td>
-                                                            <td>Dr. Amigo</td>
-                                                            <td>Cardiologue</td>
+                                                    {appointments.map((appointment, index) => (
+                                                        <tr key={index}>
+                                                            <td>{appointment.start_time}</td>
+                                                            <td>{appointment.end_time}</td>
+                                                            <td>{appointment.doctor_id}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>10/05/2023</td>
-                                                            <td>10:30</td>
-                                                            <td>Dr. Dupont</td>
-                                                            <td>Orthopédiste</td>
-                                                        </tr>
+                                                    ))}
                                                     </tbody>
                                                 </Table>
+                                                <Button variant="primary" className="rounded-pill mt-3" onClick={() => navigate("/newAppointment")}><FontAwesomeIcon icon={faPlus} /> Planifier un rendez-vous</Button>
+                                                <Button variant="warning" className="rounded-pill mt-3" onClick={() => navigate("/appointment")}><FontAwesomeIcon icon={faCalendar} /> Vue calendrier</Button>
                                             </Col>
                                         </Row>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
+                        )}
                     </Container>
                 )}
             </main>
