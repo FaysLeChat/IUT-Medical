@@ -33,7 +33,7 @@ CREATE TABLE appointments (
     user_id INTEGER,
     doctor_id INTEGER,
     patient_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES user_id (id) ON DELETE SET NULL ON UPDATE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL ON UPDATE SET NULL,
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL ON UPDATE SET NULL,
     FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
@@ -66,9 +66,9 @@ INSERT INTO patients (birthdate, doctor_id) VALUES
     ('1995-06-15', 2);
 
 INSERT INTO appointments (start_time, end_time, user_id, doctor_id, patient_id) VALUES
-    ('2023-04-05 09:00', '2023-04-05 10:00', 5, 1, 1),
-    ('2023-04-06 14:30', '2023-04-06 15:30', 5, 2, 2),
-    ('2023-04-07 11:00', '2023-04-07 12:00', 6, 1, 3),
+    ('2023-04-05 09:00', '2023-04-05 10:00', 1, 1, 1),
+    ('2023-04-06 14:30', '2023-04-06 15:30', 4, 2, 2),
+    ('2023-04-07 11:00', '2023-04-07 12:00', 3, 1, 3),
     ('2023-04-08 16:00', '2023-04-08 17:00', 6, 2, 4);
 
 INSERT INTO users (name, surname, email, password, registration_date, patient_id, doctor_id) VALUES
