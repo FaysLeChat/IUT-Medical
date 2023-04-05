@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import {Button, Card, Col, Container, ListGroup, ListGroupItem, Row, Table} from "react-bootstrap";
 import NotLoggedComponent from "../components/NotLoggedComponent";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 import {
     faCalendar,
     faGear,
@@ -18,8 +19,30 @@ import {
 const Profile = (props) => {
     const amigo = props.cookie.amigo;
     const email = amigo && amigo.email;
+    const [userInfo, setUserInfo] = useState(null);
     //const name = amigo && amigo.name;
     //const surname = amigo && amigo.surname;
+
+    async function getUserInfoByEmail(email) {
+        try {
+            const response = await fetch(`http://localhost:8000/profile?email=${email}`);
+            if (response.ok) {
+                const userInfo = await response.json();
+                console.log(userInfo);
+                setUserInfo(userInfo); // Utilisez setUserInfo pour mettre à jour l'état
+            } else {
+                console.error(`Error: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error(`Error fetching user info: ${error.message}`);
+        }
+    }
+
+    useEffect(() => {
+        if (email) {
+            getUserInfoByEmail(email);
+        }
+    }, [email]);
 
     return (
         <div className="App">
@@ -49,21 +72,22 @@ const Profile = (props) => {
                                                     <ListGroupItem>
                                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                             <span>
-                                                                <strong>Nom :</strong> Jay
+                                                                <strong>Nom :</strong> {userInfo && userInfo.name}
                                                             </span>
                                                             <span>
-                                                                <strong>Prénom :</strong> Mal
+                                                                <strong>Prénom :</strong> {userInfo && userInfo.surname}
                                                             </span>
                                                         </div>
                                                     </ListGroupItem>
                                                     <ListGroupItem>
-                                                        <strong>Email :</strong> {email}
+                                                        <strong>Email :</strong> {userInfo && userInfo.email}
                                                     </ListGroupItem>
                                                     <ListGroupItem>
-                                                        <strong>Date d'inscription :</strong> dd/mm/aaaa
+                                                        <strong>Date d'inscription :</strong> {userInfo && userInfo.registration_date}
                                                     </ListGroupItem>
                                                     <ListGroupItem>
-                                                        <strong>Statut :</strong> Patient
+                                                        <strong>Statut :</strong>
+                                                        {(userInfo && userInfo.patient_id)!==null?'Patient':''} {(userInfo && userInfo.doctor_id)!==null?'Docteur':''}
                                                     </ListGroupItem>
                                                     <ListGroupItem>
                                                         <strong>Pays :</strong> France

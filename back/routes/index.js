@@ -341,6 +341,29 @@ router.put('/users/:id', (req, res) => {
     );
 });
 
+router.get('/profile', (req, res) => {
+    const email = req.query.email;
+
+    if (!email) {
+        res.status(400).send('Email is required');
+        return;
+    }
+
+    db.get(
+        'SELECT * FROM users WHERE email = ?',
+        [email],
+        (err, row) => {
+            if (err) {
+                res.status(500).send(err.message);
+            } else if (!row) {
+                res.status(404).send(`User with email ${email} not found.`);
+            } else {
+                res.json(row);
+            }
+        }
+    );
+});
+
 router.get("/appointments/:id",(req,res)=>
 {db.get("select * from appointments where id=?",
     req.params.id,(err,row)=>{res.json(row)})})

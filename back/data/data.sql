@@ -44,6 +44,7 @@ CREATE TABLE users (
                        password TEXT NOT NULL,
                        patient_id INTEGER,
                        doctor_id INTEGER,
+                       registration_date DATE DEFAULT CURRENT_DATE,
                        FOREIGN KEY (patient_id) REFERENCES patients (id) ON DELETE SET NULL,
                        FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE SET NULL
 );
