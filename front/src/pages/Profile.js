@@ -136,17 +136,18 @@ const Profile = (props) => {
                                 </Card>
                             </Col>
                         </Row>
-                        <Row className="justify-content-center mt-5">
-                            <Col>
-                                <Card>
-                                    <Card.Header>
-                                        <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Row>
-                                            <Col>
-                                                <Table striped bordered hover size="sm">
-                                                    <thead>
+                        {!isDoctor && (
+                            <Row className="justify-content-center mt-5">
+                                <Col>
+                                    <Card>
+                                        <Card.Header>
+                                            <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <Row>
+                                                <Col>
+                                                    <Table striped bordered hover size="sm">
+                                                        <thead>
                                                         <tr>
                                                             <th>Début</th>
                                                             <th>Fin</th>
@@ -171,6 +172,7 @@ const Profile = (props) => {
                                 </Card>
                             </Col>
                         </Row>
+                        )}
                     </Container>
                 )}
             </main>
