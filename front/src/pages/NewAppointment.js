@@ -1,13 +1,26 @@
 import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import login from "../assets/img/login.png";
 
 export default function NewAppointment(){
+    const [doctors, setDoctors] = useState([]);
+    const [patient, setPatient] = useState([]);
     const [newAppointment, setNewAppointment] = useState({start_time: "", end_time: "", doctor_id: 0, patient_id: 0});
 
-    const handleTextChange = (event, type) => {
-        const value = type === 'number' ? Number(event.target.value) : event.target.value;
+    useEffect(() => {
+        fetch('http://localhost:8000/doctors/nameandid')
+            .then(response => response.json())
+            .then(data => setDoctors(data))
+            .catch(error => console.error(error));
+        fetch('http://localhost:8000/patients')
+            .then(response => response.json())
+            .then(data => setPatient(data))
+            .catch(error => console.error(error));
+    }, []);
+
+    const handleTextChange = (event) => {
+        const value = event.target.value;
         setNewAppointment({ ...newAppointment, [event.target.name]: value });
     };
 
@@ -55,8 +68,15 @@ export default function NewAppointment(){
                                 </Row>
 
                                 <Form.Group controlId="appointmentDoctorId">
-                                    <Form.Label>Identifiant du docteur</Form.Label>
-                                    <Form.Control type="number" name="doctor_id" placeholder="Identifiant du docteur" value={newAppointment.doctor_id} onChange={(e) => handleTextChange(e, 'number')} />
+                                    <Form.Label>Docteur</Form.Label>
+                                    <Form.Control as="select" name="doctor_id" onChange={(e) => handleTextChange(e)}>
+                                        <option value="">Sélectionner un docteur</option>
+                                        {doctors.map((doctor) => (
+                                            <option key={doctor.id} value={doctor.id}>
+                                                {doctor.name}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="appointmentPatientId">
                                     <Form.Label>Identifiant du patient</Form.Label>
