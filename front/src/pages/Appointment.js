@@ -9,7 +9,6 @@ import {Link} from "react-router-dom";
 import {getUserByEmail, isDoctorByEmail} from "../services/userService";
 
 export default function Appointment(props) {
-
     const [appointments, setAppointments] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
     const [isDoctor, setIsDoctor] = useState(null);
@@ -18,7 +17,7 @@ export default function Appointment(props) {
     const email = amigo && amigo.email;
 
     useEffect(() => {
-        axios.get('http://localhost:8000/appointments')
+        axios.get(`http://localhost:8000/appointments/${email}`)
             .then(response => {
                 setAppointments(response.data);
             })
@@ -40,9 +39,11 @@ export default function Appointment(props) {
 
     const appointmentEvents = appointments.map(appointment => ({
         title: `Rendez-vous avec ${appointment.doctor_id}`,
-        start: new Date(appointment.start_time.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1')),
-        end: new Date(appointment.end_time.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1')),
-        id: appointment.id
+        start: appointment.start_time,
+        end: appointment.end_time,
+        id: appointment.id,
+        doctor_id: appointment.doctor_id,
+        patient_id: appointment.patient_id
     }));
 
     const deleteEvent = (id) => {
@@ -70,6 +71,23 @@ export default function Appointment(props) {
         }
     };
 
+    const handleEventUpdate = (eventInfo) => {
+        const updatedEvent = {
+            id: eventInfo.event.id,
+            start_time: eventInfo.event.start,
+            end_time: eventInfo.event.end,
+            doctor_id: eventInfo.event.extendedProps.doctor_id,
+            patient_id: eventInfo.event.extendedProps.patient_id
+        };
+        axios.put(`http://localhost:8000/appointments/${updatedEvent.id}`, updatedEvent)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     return (
         <div className="App">
             <main>
@@ -88,6 +106,7 @@ export default function Appointment(props) {
                                   droppable={true}
                                   locale={frLocale}
                                   eventClick={handleEventDelete}
+                                  eventDrop={handleEventUpdate}
                     />
                 </Container>
             </main>
