@@ -1,5 +1,5 @@
 import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import login from "../assets/img/login.png";
 
@@ -15,6 +15,19 @@ export default function Register(){
         birthdate: "",
         doctorId: ""
     });
+    const [doctors, setDoctors] = useState([]);
+    const [medicalOffice, setMedicalOffice] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/doctors/nameandid')
+            .then(response => response.json())
+            .then(data => setDoctors(data))
+            .catch(error => console.error(error));
+        fetch('http://localhost:8000/medicaloffices')
+            .then(response => response.json())
+            .then(data => setMedicalOffice(data))
+            .catch(error => console.error(error));
+    }, []);
 
     function handleTextChange(e, label) {
         setPerson({...person, [label]: e.target.value})
@@ -106,9 +119,13 @@ export default function Register(){
                                         </Form.Group>
 
                                         <Form.Group controlId="medicalOfficeId">
-                                            <Form.Label>ID de bureau médical</Form.Label>
-                                            <Form.Control type="text" placeholder="Entrez l'ID de votre bureau médical" value={person.medicalOfficeId}
-                                                          onChange={e => handleTextChange(e, "medicalOfficeId")} />
+                                            <Form.Label>Choisissez votre cabinet médical</Form.Label>
+                                            <Form.Select value={person.medicalOfficeId} onChange={e => handleTextChange(e, "medicalOfficeId")}>
+                                                <option value="">Choisir...</option>
+                                                {medicalOffice.map(medicalOffice => (
+                                                    <option key={medicalOffice.id} value={medicalOffice.id}>{medicalOffice.name}</option>
+                                                ))}
+                                            </Form.Select>
                                         </Form.Group>
                                     </>
                                 )}
@@ -122,14 +139,18 @@ export default function Register(){
                                         </Form.Group>
 
                                         <Form.Group controlId="doctorId">
-                                            <Form.Label>ID du docteur</Form.Label>
-                                            <Form.Control type="text" value={person.doctorId}
-                                                          onChange={e => handleTextChange(e, "doctorId")} />
+                                            <Form.Label>Choisissez votre docteur</Form.Label>
+                                            <Form.Select value={person.doctorId} onChange={e => handleTextChange(e, "doctorId")}>
+                                                <option value="">Choisir...</option>
+                                                {doctors.map(doctor => (
+                                                    <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
+                                                ))}
+                                            </Form.Select>
                                         </Form.Group>
                                     </>
                                 )}
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" style={{ marginTop: '20px' }}>
                                     S'inscrire
                                 </Button>
                             </Form>
