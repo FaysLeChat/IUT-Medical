@@ -140,7 +140,7 @@ export default function Register(){
 
                                         <Form.Group controlId="doctorId">
                                             <Form.Label>Choisissez votre docteur</Form.Label>
-                                            <Form.Select value={person.doctorId} onChange={e => handleTextChange(e, "doctorId")}>
+                                            <Form.Select name="doctorId" value={person.doctorId} onChange={e => handleTextChange(e, "doctorId")}>
                                                 <option value="">Choisir...</option>
                                                 {doctors.map(doctor => (
                                                     <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
