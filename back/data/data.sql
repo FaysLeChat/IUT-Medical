@@ -64,10 +64,10 @@ INSERT INTO patients (birthdate, doctor_id) VALUES
     ('1995-06-15', 2);
 
 INSERT INTO appointments (start_time, end_time, doctor_id, patient_id) VALUES
-    ('05/04/2023 09:00', '05/04/2023 10:00', 1, 1),
-    ('06/04/2023 14:30', '06/04/2023 15:30', 2, 2),
-    ('07/04/2023 11:00', '07/04/2023 12:00', 1, 3),
-    ('08/04/2023 16:00', '08/04/2023 17:00', 2, 4);
+    ('2023-04-05 09:00', '2023-04-05 10:00', 1, 1),
+    ('2023-04-06 14:30', '2023-04-06 15:30', 2, 2),
+    ('2023-04-07 11:00', '2023-04-07 12:00', 1, 3),
+    ('2023-04-08 16:00', '2023-04-08 17:00', 2, 4);
 
 INSERT INTO users (name, surname, email, password, registration_date, patient_id, doctor_id) VALUES
     ('John', 'Doe', 'john.doe@example.com', 'password', NULL, 1, NULL),
