@@ -128,25 +128,26 @@ const Profile = (props) => {
                                 </Card>
                             </Col>
                         </Row>
-                        <Row className="justify-content-center mt-5">
-                            <Col>
-                                <Card>
-                                    <Card.Header>
-                                        <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Row>
-                                            <Col>
-                                                <Table striped bordered hover size="sm">
-                                                    <thead>
+                        {!isDoctor && (
+                            <Row className="justify-content-center mt-5">
+                                <Col>
+                                    <Card>
+                                        <Card.Header>
+                                            <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <Row>
+                                                <Col>
+                                                    <Table striped bordered hover size="sm">
+                                                        <thead>
                                                         <tr>
                                                             <th>Date</th>
                                                             <th>Heure</th>
                                                             <th>Docteur</th>
                                                             <th>Spécialité</th>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                        </thead>
+                                                        <tbody>
                                                         <tr>
                                                             <td>01/05/2023</td>
                                                             <td>14:00</td>
@@ -159,14 +160,15 @@ const Profile = (props) => {
                                                             <td>Dr. Dupont</td>
                                                             <td>Orthopédiste</td>
                                                         </tr>
-                                                    </tbody>
-                                                </Table>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
+                                                        </tbody>
+                                                    </Table>
+                                                </Col>
+                                            </Row>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        )}
                     </Container>
                 )}
             </main>

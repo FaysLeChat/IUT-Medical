@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Row, Col, Carousel, Button, Form, Card, Accordion, useAccordionButton} from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,15 +8,31 @@ import cbanner2 from '../assets/img/cbanner2.png';
 import {faCalendar, faClock, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
+import {getUserByEmail, isDoctorByEmail} from "../services/userService";
 
 const Home = (props) => {
     const navigate = useNavigate();
     let email ;
+    const [userInfo, setUserInfo] = useState(null);
+    const [isDoctor, setIsDoctor] = useState(null);
 
     if(props.cookie && props.cookie.amigo) {
         email = props.cookie.amigo.email;
         console.log(props);
     }
+
+    useEffect(() => {
+        async function fetchData() {
+            const fetchedUserInfo = await getUserByEmail(email);
+            setUserInfo(fetchedUserInfo);
+        }
+        async function checkDoctorStatus() {
+            const isDoctorResult = await isDoctorByEmail(email);
+            setIsDoctor(isDoctorResult);
+        }
+        checkDoctorStatus();
+        fetchData();
+    }, [email]);
 
     return (
         <div className="App">
@@ -41,46 +57,48 @@ const Home = (props) => {
 
                 <Container className="mt-5">
                     <Row>
-                        <Col md={4}>
-                            <Card className="mb-4">
-                                <Card.Body>
-                                    <Card.Title><FontAwesomeIcon icon={faCalendar} /> Prendre rendez-vous</Card.Title>
-                                    <Form>
-                                        <Row>
-                                            <label>Date de début</label>
-                                            <Col>
-                                                <Form.Group controlId="appointmentDate">
-                                                    <Form.Control type="date" />
-                                                </Form.Group>
-                                            </Col>
-                                            <Col>
-                                                <Form.Group controlId="appointmentTime">
-                                                    <Form.Control type="time" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <label>Date de fin</label>
-                                            <Col>
-                                                <Form.Group controlId="appointmentDate">
-                                                    <Form.Control type="date" />
-                                                </Form.Group>
-                                            </Col>
-                                            <Col>
-                                                <Form.Group controlId="appointmentTime">
-                                                    <Form.Control type="time" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        { email === undefined ? (
-                                            <Button variant="outline-danger" className="rounded-pill mt-3" onClick={() => navigate("/login")}>Se connecter</Button>
-                                        ) : (
-                                            <Button variant="outline-primary" className="rounded-pill mt-3">Valider</Button>
-                                        )}
-                                    </Form>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                        {!isDoctor && (
+                            <Col md={4}>
+                                <Card className="mb-4">
+                                    <Card.Body>
+                                        <Card.Title><FontAwesomeIcon icon={faCalendar} /> Prendre rendez-vous</Card.Title>
+                                        <Form>
+                                            <Row>
+                                                <label>Date de début</label>
+                                                <Col>
+                                                    <Form.Group controlId="appointmentDate">
+                                                        <Form.Control type="date" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Group controlId="appointmentTime">
+                                                        <Form.Control type="time" />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <label>Date de fin</label>
+                                                <Col>
+                                                    <Form.Group controlId="appointmentDate">
+                                                        <Form.Control type="date" />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Group controlId="appointmentTime">
+                                                        <Form.Control type="time" />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            { email === undefined ? (
+                                                <Button variant="outline-danger" className="rounded-pill mt-3" onClick={() => navigate("/login")}>Se connecter</Button>
+                                            ) : (
+                                                <Button variant="outline-primary" className="rounded-pill mt-3">Valider</Button>
+                                            )}
+                                        </Form>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )}
                         <Col md={8}>
                             <Accordion defaultActiveKey="0">
                                 <Card>

@@ -6,10 +6,16 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import {Container} from "react-bootstrap";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {getUserByEmail, isDoctorByEmail} from "../services/userService";
 
-export default function Appointment() {
+export default function Appointment(props) {
 
     const [appointments, setAppointments] = useState([]);
+    const [userInfo, setUserInfo] = useState(null);
+    const [isDoctor, setIsDoctor] = useState(null);
+
+    const amigo = props.cookie.amigo;
+    const email = amigo && amigo.email;
 
     useEffect(() => {
         axios.get('http://localhost:8000/appointments')
@@ -19,7 +25,18 @@ export default function Appointment() {
             .catch(error => {
                 console.log(error);
             });
-    }, []);
+
+        async function fetchData() {
+            const fetchedUserInfo = await getUserByEmail(email);
+            setUserInfo(fetchedUserInfo);
+        }
+        async function checkDoctorStatus() {
+            const isDoctorResult = await isDoctorByEmail(email);
+            setIsDoctor(isDoctorResult);
+        }
+        checkDoctorStatus();
+        fetchData();
+    }, [email]);
 
     const appointmentEvents = appointments.map(appointment => ({
         title: `Rendez-vous avec ${appointment.doctor_id}`,
@@ -57,11 +74,13 @@ export default function Appointment() {
         <div className="App">
             <main>
                 <Container className="mt-5">
-                    <div className="d-flex justify-content-between mb-3">
-                        <Link to="/newAppointment" className="btn btn-primary mb-3">
-                            Ajouter un rendez-vous
-                        </Link>
-                    </div>
+                    {!isDoctor && (
+                        <div className="d-flex justify-content-between mb-3">
+                            <Link to="/newAppointment" className="btn btn-primary mb-3">
+                                Ajouter un rendez-vous
+                            </Link>
+                        </div>
+                    )}
                     <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
                                   initialView="timeGridWeek"
                                   events={appointmentEvents}
