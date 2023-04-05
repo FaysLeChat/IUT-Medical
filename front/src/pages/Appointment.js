@@ -25,7 +25,9 @@ export default function Appointment() {
         title: `Rendez-vous avec ${appointment.doctor_id}`,
         start: appointment.start_time,
         end: appointment.end_time,
-        id: appointment.id
+        id: appointment.id,
+        doctor_id: appointment.doctor_id,
+        patient_id: appointment.patient_id
     }));
 
     const deleteEvent = (id) => {
@@ -53,6 +55,23 @@ export default function Appointment() {
         }
     };
 
+    const handleEventUpdate = (eventInfo) => {
+        const updatedEvent = {
+            id: eventInfo.event.id,
+            start_time: eventInfo.event.start,
+            end_time: eventInfo.event.end,
+            doctor_id: eventInfo.event.extendedProps.doctor_id,
+            patient_id: eventInfo.event.extendedProps.patient_id
+        };
+        axios.put(`http://localhost:8000/appointments/${updatedEvent.id}`, updatedEvent)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     return (
         <div className="App">
             <main>
@@ -69,6 +88,7 @@ export default function Appointment() {
                                   droppable={true}
                                   locale={frLocale}
                                   eventClick={handleEventDelete}
+                                  eventDrop={handleEventUpdate}
                     />
                 </Container>
             </main>
