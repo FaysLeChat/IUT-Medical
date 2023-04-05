@@ -46,6 +46,7 @@ export default function Login(props) {
                                 <Form.Group controlId="personEmail">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
+                                        name="email"
                                         type="email"
                                         placeholder="Entrez votre email"
                                         value={person.email}
@@ -56,6 +57,7 @@ export default function Login(props) {
                                 <Form.Group controlId="personPassword">
                                     <Form.Label>Mot de passe</Form.Label>
                                     <Form.Control
+                                        name="password"
                                         type="password"
                                         placeholder="Entrez votre mot de passe"
                                         value={person.password}
