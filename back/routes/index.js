@@ -30,24 +30,91 @@ router.get('/', function(req, res, next) {
 
 /* Login et register. */
 
+// router.post("/register", (req, res) => {
+//     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+//         db.run(
+//             "INSERT INTO users (name, surname, email, password) VALUES ($name, $surname, $email, $password)",
+//             {
+//                 $name: req.body.name,
+//                 $surname: req.body.surname,
+//                 $email: req.body.email,
+//                 $password: hash
+//             },
+//             function (err) {
+//                 if (err) {
+//                     return res.json(err).status(401);
+//                 }
+//                 return res.json({ id: this.lastID }).status(201);
+//             }
+//         );
+//     });
+// });
+
 router.post("/register", (req, res) => {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-        db.run(
-            "INSERT INTO users (name, surname, email, password) VALUES ($name, $surname, $email, $password)",
-            {
-                $name: req.body.name,
-                $surname: req.body.surname,
-                $email: req.body.email,
-                $password: hash
-            },
-            function (err) {
-                if (err) {
-                    return res.json(err).status(401);
+        if (req.body.userType === "doctor") {
+            db.run(
+                "INSERT INTO doctors (description, medicaloffice_id) VALUES ($description, $medicaloffice_id)",
+                {
+                    $description: req.body.doctorDescription,
+                    $medicaloffice_id: req.body.medicalOfficeId
+                },
+                function (err) {
+                    if (err) {
+                        return res.json(err).status(401);
+                    }
+                    db.run(
+                        "INSERT INTO users (name, surname, email, password, doctor_id) VALUES ($name, $surname, $email, $password, $doctor_id)",
+                        {
+                            $name: req.body.name,
+                            $surname: req.body.surname,
+                            $email: req.body.email,
+                            $password: hash,
+                            $doctor_id: this.lastID
+                        },
+                        function (err) {
+                            if (err) {
+                                return res.json(err).status(401);
+                            }
+                            return res.json({ id: this.lastID }).status(201);
+                        }
+                    );
                 }
-                return res.json({ id: this.lastID }).status(201);
-            }
-        );
+            );
+        } else if (req.body.userType === "patient") {
+            db.run(
+                "INSERT INTO patients (birthdate, doctor_id) VALUES ($birthdate, $doctor_id)",
+                {
+                    $birthdate: req.body.birthdate,
+                    $doctor_id: req.body.doctorId
+                },
+                function (err) {
+                    if (err) {
+                        return res.json(err).status(401);
+                    }
+                    db.run(
+                        "INSERT INTO users (name, surname, email, password, patient_id) VALUES ($name, $surname, $email, $password, $patient_id)",
+                        {
+                            $name: req.body.name,
+                            $surname: req.body.surname,
+                            $email: req.body.email,
+                            $password: hash,
+                            $patient_id: this.lastID
+                        },
+                        function (err) {
+                            if (err) {
+                                return res.json(err).status(401);
+                            }
+                            return res.json({ id: this.lastID }).status(201);
+                        }
+                    );
+                }
+            );
+        } else {
+            return res.json({ error: "Invalid user type" }).status(400);
+        }
     });
+
 });
 
 router.post("/login", (req, res) => {
