@@ -9,6 +9,7 @@ import Appointment from "../pages/Appointment";
 import NavbarComponent from "../components/NavbarComponent";
 import FooterComponent from "../components/FooterComponent";
 import Profile from "../pages/Profile";
+import NewAppointment from "../pages/NewAppointment";
 
 const AppRoutes = (props) => (
     <BrowserRouter>
@@ -19,6 +20,7 @@ const AppRoutes = (props) => (
             <Route path="/register" element={<Register />} />
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/profile" element={<Profile cookie={props.cookies} />} />
+            <Route path="/newAppointment" element={<NewAppointment/>} />
             <Route path="*" element={<NotFound />} />
         </Routes>
         <FooterComponent />
