@@ -443,4 +443,15 @@ router.get("/patients/:id",(req,res)=>
 {db.get("select * from patients where id=?",
     req.params.id,(err,row)=>{res.json(row)})})
 
+router.get('/doctors/nameandid', (req, res) => {
+    db.all('SELECT doctors.id, users.name FROM doctors JOIN users ON doctors.id = users.doctor_id', (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 module.exports = router;
