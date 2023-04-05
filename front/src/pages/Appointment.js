@@ -23,8 +23,8 @@ export default function Appointment() {
 
     const appointmentEvents = appointments.map(appointment => ({
         title: `Rendez-vous avec ${appointment.doctor_id}`,
-        start: appointment.start_time,
-        end: appointment.end_time,
+        start: new Date(appointment.start_time.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1')),
+        end: new Date(appointment.end_time.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1')),
         id: appointment.id
     }));
 

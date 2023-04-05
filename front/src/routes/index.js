@@ -10,6 +10,7 @@ import NavbarComponent from "../components/NavbarComponent";
 import FooterComponent from "../components/FooterComponent";
 import Profile from "../pages/Profile";
 import NewAppointment from "../pages/NewAppointment";
+import Contact from "../pages/Contact";
 
 const AppRoutes = (props) => (
     <BrowserRouter>
@@ -18,6 +19,7 @@ const AppRoutes = (props) => (
             <Route path="/" element={<Home cookie={props.cookies} />} />
             <Route path="/login" element={<Login setCookie={props.setCookie} />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/profile" element={<Profile cookie={props.cookies} />} />
             <Route path="/newAppointment" element={<NewAppointment/>} />
