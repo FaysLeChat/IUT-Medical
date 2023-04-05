@@ -38,28 +38,18 @@ export default function NewAppointment(){
                             <h1>Prenez rendez-vous</h1>
                             <Form onSubmit={handleSubmit}>
                                 <Row>
-                                    <label>Date de début</label>
+                                    <label>Date et heure de début</label>
                                     <Col>
-                                        <Form.Group controlId="appointmentDate">
-                                            <Form.Control type="date" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group controlId="appointmentTime">
-                                            <Form.Control type="time" />
+                                        <Form.Group controlId="appointmentStartDate">
+                                            <Form.Control type="datetime-local" name="start_time" value={newAppointment.start_time} onChange={(e) => handleTextChange(e)} />
                                         </Form.Group>
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <label>Date de fin</label>
+                                    <label>Date et heure de fin</label>
                                     <Col>
-                                        <Form.Group controlId="appointmentDate">
-                                            <Form.Control type="date" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group controlId="appointmentTime">
-                                            <Form.Control type="time" />
+                                        <Form.Group controlId="appointmentEndDate">
+                                            <Form.Control type="datetime-local" name="end_time" value={newAppointment.end_time} onChange={(e) => handleTextChange(e)} />
                                         </Form.Group>
                                     </Col>
                                 </Row>
