@@ -13,6 +13,9 @@ describe('FullMedical Alchemist', () => {
         cy.get('input[name=name]').type('mon_nom_utilisateur');
         cy.get('input[name=email]').type('mon_email@example.com');
         cy.get('input[name=password]').type('mon_mot_de_passe');
+        cy.get('input[value="patient"]').check()
+        cy.get('input[type="date"]').type('1990-01-01')
+        cy.get('select[name="doctorId"]').select('Bob')
         cy.get('button[type=submit]').click();
 
         // Vérifier que l'utilisateur est redirigé vers la page de connexion
