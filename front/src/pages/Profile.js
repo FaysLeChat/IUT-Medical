@@ -57,6 +57,43 @@ const Profile = (props) => {
                                     </Card.Body>
                                 </Card>
                             </Col>
+                            <Col md={4}>
+                                <Card>
+                                    <Card.Header>
+                                        <h3>Informations patient</h3>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <ListGroup className="list-group-flush">
+                                                    <ListGroupItem>
+                                                        <strong>Numéro de sécurité sociale :</strong> xxxxx
+                                                    </ListGroupItem>
+                                                    <ListGroupItem>
+                                                        <strong>Docteur généraliste :</strong> Dr. Amigo
+                                                    </ListGroupItem>
+                                                </ListGroup>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center mt-5">
+                            <Col>
+                                <Card>
+                                    <Card.Header>
+                                        <h3>Mes rendez-vous programés</h3>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                Aucun
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
                         </Row>
                     </Container>
                 )}
