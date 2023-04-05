@@ -2,14 +2,24 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import {Card, Col, Container, ListGroup, ListGroupItem, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, ListGroup, ListGroupItem, Row, Table} from "react-bootstrap";
 import NotLoggedComponent from "../components/NotLoggedComponent";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faCalendar,
+    faGear,
+    faKey,
+    faMailForward,
+    faTrash,
+    faUser,
+    faUserDoctor
+} from "@fortawesome/free-solid-svg-icons";
 
 const Profile = (props) => {
     const amigo = props.cookie.amigo;
     const email = amigo && amigo.email;
-    const name = amigo && amigo.name;
-    const surname = amigo && amigo.surname;
+    //const name = amigo && amigo.name;
+    //const surname = amigo && amigo.surname;
 
     return (
         <div className="App">
@@ -22,7 +32,7 @@ const Profile = (props) => {
                             <Col md={8}>
                                 <Card>
                                     <Card.Header>
-                                        <h3>Profil utilisateur</h3>
+                                        <h3><FontAwesomeIcon icon={faUser} /> Profil utilisateur</h3>
                                     </Card.Header>
                                     <Card.Body>
                                         <Row>
@@ -37,7 +47,14 @@ const Profile = (props) => {
                                             <Col md={8}>
                                                 <ListGroup className="list-group-flush">
                                                     <ListGroupItem>
-                                                        <strong>Nom :</strong> {name} {surname}
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                            <span>
+                                                                <strong>Nom :</strong> Jay
+                                                            </span>
+                                                            <span>
+                                                                <strong>Prénom :</strong> Mal
+                                                            </span>
+                                                        </div>
                                                     </ListGroupItem>
                                                     <ListGroupItem>
                                                         <strong>Email :</strong> {email}
@@ -46,10 +63,14 @@ const Profile = (props) => {
                                                         <strong>Date d'inscription :</strong> dd/mm/aaaa
                                                     </ListGroupItem>
                                                     <ListGroupItem>
-                                                        <strong>Statut :</strong> Patient/Docteur
+                                                        <strong>Statut :</strong> Patient
                                                     </ListGroupItem>
                                                     <ListGroupItem>
                                                         <strong>Pays :</strong> France
+                                                    </ListGroupItem>
+                                                    <ListGroupItem>
+                                                        <Button variant="primary" className="rounded-pill mt-3"><FontAwesomeIcon icon={faKey} /> Changer mon mot-de-passe</Button>
+                                                        <Button variant="warning" className="rounded-pill mt-3"><FontAwesomeIcon icon={faMailForward} /> Changer mon adresse e-mail</Button>
                                                     </ListGroupItem>
                                                 </ListGroup>
                                             </Col>
@@ -60,7 +81,7 @@ const Profile = (props) => {
                             <Col md={4}>
                                 <Card>
                                     <Card.Header>
-                                        <h3>Informations patient</h3>
+                                        <h3><FontAwesomeIcon icon={faUserDoctor} /> Informations patient</h3>
                                     </Card.Header>
                                     <Card.Body>
                                         <Row>
@@ -77,18 +98,53 @@ const Profile = (props) => {
                                         </Row>
                                     </Card.Body>
                                 </Card>
+                                <Card className="mt-4">
+                                    <Card.Header>
+                                        <h3><FontAwesomeIcon icon={faGear} /> Actions</h3>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col className="text-center">
+                                                <Button variant="danger" className="rounded-pill mt-3"><FontAwesomeIcon icon={faTrash} /> Supprimer mon compte</Button>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
                             </Col>
                         </Row>
                         <Row className="justify-content-center mt-5">
                             <Col>
                                 <Card>
                                     <Card.Header>
-                                        <h3>Mes rendez-vous programés</h3>
+                                        <h3><FontAwesomeIcon icon={faCalendar} /> Mes rendez-vous programés</h3>
                                     </Card.Header>
                                     <Card.Body>
                                         <Row>
                                             <Col>
-                                                Aucun
+                                                <Table striped bordered hover size="sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Heure</th>
+                                                            <th>Docteur</th>
+                                                            <th>Spécialité</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>01/05/2023</td>
+                                                            <td>14:00</td>
+                                                            <td>Dr. Amigo</td>
+                                                            <td>Cardiologue</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10/05/2023</td>
+                                                            <td>10:30</td>
+                                                            <td>Dr. Dupont</td>
+                                                            <td>Orthopédiste</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </Table>
                                             </Col>
                                         </Row>
                                     </Card.Body>
