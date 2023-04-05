@@ -16,20 +16,23 @@ function NavbarComponent(props) {
 
     if(props.cookie && props.cookie.amigo) {
         email = props.cookie.amigo.email;
-        console.log(props);
     }
 
     useEffect(() => {
-        async function fetchData() {
-            const fetchedUserInfo = await getUserByEmail(email);
-            setUserInfo(fetchedUserInfo);
+        const fetchData = async () => {
+            if (props.cookie?.amigo?.email) {
+                const fetchedUserInfo = await getUserByEmail(email);
+                setUserInfo(fetchedUserInfo);
+            }
         }
         async function checkDoctorStatus() {
             const isDoctorResult = await isDoctorByEmail(email);
             setIsDoctor(isDoctorResult);
         }
         checkDoctorStatus();
-        fetchData();
+        (async () => {
+            await fetchData();
+        })();
     }, [email]);
 
     return (
