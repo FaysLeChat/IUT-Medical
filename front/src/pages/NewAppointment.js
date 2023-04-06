@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import login from "../assets/img/login.png";
 import {getUserByEmail} from "../services/userService";
+import NotLoggedComponent from "../components/NotLoggedComponent";
 
 export default function NewAppointment(props){
     const amigo = props.cookie.amigo;
@@ -75,67 +76,70 @@ export default function NewAppointment(props){
     return (
         <div className="App">
             <main>
-                <Container className="mt-5">
-                    <Row>
-                        <Col md={6}>
-                            <Image src={login} alt="Image d'inscription" fluid className="w-50 h-100"/>
-                        </Col>
-                        <Col md={6}>
-                            <h1>Prenez rendez-vous</h1>
-                            <Form onSubmit={handleSubmit}>
-                                <Row>
-                                    <label>Date et heure de début</label>
-                                    <Col>
-                                        <Form.Group controlId="appointmentStartDate">
-                                            <Form.Control type="datetime-local" name="start_time" value={newAppointment.start_time} onChange={(e) => handleTextChange(e)} />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <label>Date et heure de fin</label>
-                                    <Col>
-                                        <Form.Group controlId="appointmentEndDate">
-                                            <Form.Control type="datetime-local" name="end_time" value={newAppointment.end_time} onChange={(e) => handleTextChange(e)} />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
+                { amigo === undefined ? (
+                    <NotLoggedComponent />
+                ) : (
+                    <Container className="mt-5">
+                        <Row>
+                            <Col md={6}>
+                                <Image src={login} alt="Image d'inscription" fluid className="w-50 h-100"/>
+                            </Col>
+                            <Col md={6}>
+                                <h1>Prenez rendez-vous</h1>
+                                <Form onSubmit={handleSubmit}>
+                                    <Row>
+                                        <label>Date et heure de début</label>
+                                        <Col>
+                                            <Form.Group controlId="appointmentStartDate">
+                                                <Form.Control type="datetime-local" name="start_time" value={newAppointment.start_time} onChange={(e) => handleTextChange(e)} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <label>Date et heure de fin</label>
+                                        <Col>
+                                            <Form.Group controlId="appointmentEndDate">
+                                                <Form.Control type="datetime-local" name="end_time" value={newAppointment.end_time} onChange={(e) => handleTextChange(e)} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Form.Group controlId="appointmentDoctorId">
+                                        <Form.Label>Docteur</Form.Label>
+                                        <Form.Control as="select" name="doctor_id" onChange={(e) => handleTextChange(e)}>
+                                            <option value="">Sélectionner un docteur</option>
+                                            {doctors.map((doctor) => (
+                                                <option key={doctor.id} value={doctor.id}>
+                                                    {doctor.name}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group controlId="appointmentPatientId">
+                                        <Form.Label>Patient</Form.Label>
+                                        <Form.Control as="select" name="patient_id" onChange={(e) => handleTextChange(e)}>
+                                            <option value="">Sélectionner un patient</option>
+                                            {patients.map((patient) => (
+                                                <option key={patient.id} value={patient.id}>
+                                                    {patient.name}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group controlId="appointmentUserId">
+                                        <Form.Label>Identifiant de l'utilisateur</Form.Label>
+                                        <Form.Control type="number" name="user_id" placeholder="Identifiant de l'utilisateur" value={userInfo && userInfo.id} onChange={(e) => handleTextChange(e, 'number')} disabled="true" />
+                                    </Form.Group>
 
-                                <Form.Group controlId="appointmentDoctorId">
-                                    <Form.Label>Docteur</Form.Label>
-                                    <Form.Control as="select" name="doctor_id" onChange={(e) => handleTextChange(e)}>
-                                        <option value="">Sélectionner un docteur</option>
-                                        {doctors.map((doctor) => (
-                                            <option key={doctor.id} value={doctor.id}>
-                                                {doctor.name}
-                                            </option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="appointmentPatientId">
-                                    <Form.Label>Patient</Form.Label>
-                                    <Form.Control as="select" name="patient_id" onChange={(e) => handleTextChange(e)}>
-                                        <option value="">Sélectionner un patient</option>
-                                        {patients.map((patient) => (
-                                            <option key={patient.id} value={patient.id}>
-                                                {patient.name}
-                                            </option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="appointmentUserId">
-                                    <Form.Label>Identifiant de l'utilisateur</Form.Label>
-                                    <Form.Control type="number" name="user_id" placeholder="Identifiant de l'utilisateur" value={userInfo && userInfo.id} onChange={(e) => handleTextChange(e, 'number')} disabled="true" />
-                                </Form.Group>
+                                    <hr />
 
-                                <hr />
-
-                                <Button variant="primary" type="submit" className="w-100 mb-3">
-                                    Ajouter le rendez-vous
-                                </Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                </Container>
+                                    <Button variant="primary" type="submit" className="w-100 mb-3">
+                                        Ajouter le rendez-vous
+                                    </Button>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Container>
+                )}
             </main>
         </div>
     );
