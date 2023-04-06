@@ -465,4 +465,15 @@ router.get('/doctors/nameandid', (req, res) => {
     });
 });
 
+router.get('/patientsName', (req, res) => {
+    db.all('SELECT patients.id, users.name FROM patients JOIN users ON patients.id = users.patient_id', (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 module.exports = router;
