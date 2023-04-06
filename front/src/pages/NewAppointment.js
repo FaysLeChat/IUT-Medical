@@ -28,6 +28,25 @@ export default function NewAppointment(props){
         }
         fetchData();
     }, []);
+
+    async function checkAvailability() {
+        try {
+            const response = (await axios.get("http://localhost:8000/appointments")).data;
+            for (let i = 0; i < response.length; i++) {
+                const appointment = response[i];
+                if (
+                    (newAppointment.start_time >= appointment.start_time && newAppointment.start_time <= appointment.end_time) ||
+                    (newAppointment.end_time >= appointment.start_time && newAppointment.end_time <= appointment.end_time)
+                ) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (e) {
+            console.error("ERR", e);
+        }
+    }
+
     const handleTextChange = (event, type) => {
         const value = type === 'number' ? Number(event.target.value) : event.target.value;
         setNewAppointment({ ...newAppointment, [event.target.name]: value, user_id: userInfo && userInfo.id });
@@ -35,6 +54,11 @@ export default function NewAppointment(props){
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const isAvailable = await checkAvailability();
+        if (!isAvailable) {
+            alert("Le créneau est déjà occupé. Veuillez choisir une autre heure.");
+            return;
+        }
         try {
             const response = (await axios.post("http://localhost:8000/appointments", newAppointment)).data;
             if (response.id === undefined) {
@@ -93,7 +117,7 @@ export default function NewAppointment(props){
                                 </Form.Group>
                                 <Form.Group controlId="appointmentUserId">
                                     <Form.Label>Identifiant de l'utilisateur</Form.Label>
-                                    <Form.Control type="number" name="user_id" placeholder="Identifiant de l'utilisateur" value={userInfo && userInfo.id} onChange={(e) => handleTextChange(e, 'number')} />
+                                    <Form.Control type="number" name="user_id" placeholder="Identifiant de l'utilisateur" value={userInfo && userInfo.id} onChange={(e) => handleTextChange(e, 'number')} disabled="true" />
                                 </Form.Group>
 
                                 <hr />
