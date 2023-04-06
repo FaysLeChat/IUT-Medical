@@ -92,7 +92,7 @@ const Home = (props) => {
                                             { email === undefined ? (
                                                 <Button variant="outline-danger" className="rounded-pill mt-3" onClick={() => navigate("/login")}>Se connecter</Button>
                                             ) : (
-                                                <Button variant="outline-primary" className="rounded-pill mt-3">Valider</Button>
+                                                <Button variant="outline-primary" className="rounded-pill mt-3" disabled="true">Valider</Button>
                                             )}
                                         </Form>
                                     </Card.Body>
