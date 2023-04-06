@@ -7,6 +7,7 @@ import {Container} from "react-bootstrap";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {getUserByEmail, isDoctorByEmail} from "../services/userService";
+import NotLoggedComponent from "../components/NotLoggedComponent";
 
 export default function Appointment(props) {
     const [appointments, setAppointments] = useState([]);
@@ -93,24 +94,28 @@ export default function Appointment(props) {
     return (
         <div className="App">
             <main>
-                <Container className="mt-5">
-                    {!isDoctor && (
-                        <div className="d-flex justify-content-between mb-3">
-                            <Link to="/newAppointment" className="btn btn-primary mb-3">
-                                Ajouter un rendez-vous
-                            </Link>
-                        </div>
-                    )}
-                    <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
-                                  initialView="timeGridWeek"
-                                  events={appointmentEvents}
-                                  editable={true}
-                                  droppable={true}
-                                  locale={frLocale}
-                                  eventClick={handleEventDelete}
-                                  eventDrop={handleEventUpdate}
-                    />
-                </Container>
+                { amigo === undefined ? (
+                    <NotLoggedComponent />
+                ) : (
+                    <Container className="mt-5">
+                        {!isDoctor && (
+                            <div className="d-flex justify-content-between mb-3">
+                                <Link to="/newAppointment" className="btn btn-primary mb-3">
+                                    Ajouter un rendez-vous
+                                </Link>
+                            </div>
+                        )}
+                        <FullCalendar plugins={[ timeGridWeek, interactionPlugin ]}
+                                      initialView="timeGridWeek"
+                                      events={appointmentEvents}
+                                      editable={true}
+                                      droppable={true}
+                                      locale={frLocale}
+                                      eventClick={handleEventDelete}
+                                      eventDrop={handleEventUpdate}
+                        />
+                    </Container>
+                )}
             </main>
         </div>
     )
