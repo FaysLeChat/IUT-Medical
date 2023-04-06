@@ -26,6 +26,7 @@ Outils utilisés
 - Github (pour notre git)
 - Discord (outil de communication)
 - Webstorm (outil de développement, IDE Javascript)
+- Postman (pour les appels API)
 
 NPM
 
