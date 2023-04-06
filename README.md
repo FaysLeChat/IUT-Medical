@@ -1,63 +1,59 @@
 
 # FullMedical Alchemist
 
-## Organisation
+Organisation
+Présentation de l'équipe
 
-### Présentation de l'équipe
-
-Notre équipe est composé de trois personnes:  
+Notre équipe est composée de trois personnes :
 
 - Allan PONCHAUT
 - Maxence DUBOIS
 - Lucie CAUDRON
 
-### Présentation de l'application
+Présentation de l'application
 
-Notre application s'appelle FullMedical Alchemist. Ce site permet à des clients (patients) de demander à des prestataires (docteurs) des rendez-vous médicaux. Les utilisateurs peuvent s'inscrire et sélectionner leur rôle (patient ou docteur). 
+Notre application s'appelle FullMedical Alchemist. Ce site permet à des clients (patients) de demander à des prestataires (docteurs) des rendez-vous médicaux. Les utilisateurs peuvent s'inscrire et sélectionner leur rôle (patient ou docteur).
 
-Les patients peuvent accéder à un calendrier avec leur rendez-vous, ou bien demander un rendez-vous avec la date et leur docteur de leur choix (tant que la date est libre et qu'il n'est pas occupé).
+Les patients peuvent accéder à un calendrier avec leurs rendez-vous, ou bien demander un rendez-vous à la date et avec le docteur de leur choix (tant que la date est libre et que le docteur n'est pas occupé).
 
-Les docteurs, quand à eux, peuvent accéder aux rendez-vous qu'ils ont (soit dans le calendrier, soit dans leur profil), et ne peuvent pas créer de rendez-vous.
+Les docteurs, quant à eux, peuvent accéder aux rendez-vous qu'ils ont (soit dans le calendrier, soit dans leur profil), mais ne peuvent pas créer de rendez-vous.
 
-Les deux types d'utilisateurs peuvent accéder à un profil qui donnent des informations sur leur compte, et les rendez-vous qu'ils sont si l'utilisateur est un docteur. 
-
-### Présentation des outils utilisés
-
-#### Outils utilisés
+Les deux types d'utilisateurs peuvent accéder à un profil qui donne des informations sur leur compte, et les rendez-vous qu'ils ont s'ils sont des docteurs.
+Présentation des outils utilisés
+Outils utilisés
 
 - Trello (outil de suivi/tickets)
 - Github (pour notre git)
 - Discord (outil de communication)
 - Webstorm (outil de développement, IDE Javascript)
-- Postman (tester les appels API)
 
-#### NPM
+NPM
 
 - SQLite3 (base de données)
-- Express 
-	- Nodemon (aide développement)
+- Express
+	- Nodemon (aide au développement)
 	- Passport (sécurité)
-	-  Mocha & Chai (tests)
-- React
+	- Mocha & Chai (tests)
+- React  
 	- FullCalendar (calendrier)
 	- Jest (tests)
 	- Cypress (tests)
-	- Axios (requête API)
+	- Axios (requêtes API)
 	- Bootstrap (design)
 
 ## Gestion de projet
 
-Pour ce projet, nous avons décidé de travailler en méthode Agile car nous pensons que c'est la méthode la plus efficace pour avancer le mieux dans un projet. Nous avions des rôles assez défini:
+Pour ce projet, nous avons décidé de travailler en méthode Agile car nous pensons que c'est la méthode la plus efficace pour avancer de manière optimale dans un projet. Nous avions des rôles assez définis :
 
-- Allan PONCHAUT (plus niveau back-end, base de données, gestion des réunions etc.)
-- Maxence DUBOIS (un peu plus niveau front-end, mais aussi du back-end, gestion du calendrier, assez polyvalent)
-- Lucie CAUDRON (plus niveau front-end, avec la gestion du Github pour les merges et les pull requests)
+- Allan PONCHAUT (plutôt orienté back-end, base de données, gestion des réunions, etc.)
+- Maxence DUBOIS (plutôt orienté front-end, mais également back-end, gestion du calendrier, assez polyvalent)
+- Lucie CAUDRON (plutôt orientée front-end, avec la gestion de Github pour les merges et les pull requests)
 
-Ceci étaient nos rôle principaux, mais cela ne veut pas dire que nous n'avons pas touché à tout (nous avons tous fais du front-end, back-end et du Git). Nous faisions des réunions toutes les pauses (vers 10h, midi et vers 15h) pour voir l'avancement du projet et ce qu'il restait à faire pour toujours avoir des tâches à accomplir. Nous avons aussi utilisés ces réunions pour faire des merge dans notre branche "main", pour éviter de tout faire ça après une journée ou deux et d'avoir des problèmes à cause de cela. Cela nous à permis d'avoir une branche main propre et accessible.
+Ces rôles étaient nos rôles principaux, mais cela ne signifie pas que nous n'avons pas touché à tout (nous avons tous travaillé sur le front-end, le back-end et le Git). Nous avons organisé des réunions toutes les pauses (vers 10h, midi et vers 15h) pour voir l'avancement du projet et ce qu'il restait à faire afin de toujours avoir des tâches à accomplir. Nous avons également utilisé ces réunions pour fusionner nos branches dans notre branche "main", afin d'éviter de tout faire cela après une journée ou deux et d'avoir des problèmes à cause de cela. Cela nous a permis d'avoir une branche "main" propre et accessible.
 
-Pour une journée type, nous arrivons à 9h. Ensuite, nous travaillons sur notre ticket. Après cela, on sé réuni pour voir si il y a des problèmes, ce que nous faisons, ou si on doit merger dans le main. On continue de travailler, et on fait une pause à midi pour manger. L'après-midi ce passe de la même façon que le matin, où nous travaillons sur notre ticket, fait une réunion, et continuons de travailler.
+Pour une journée type, nous arrivons à 9h. Ensuite, nous travaillons sur notre ticket. Après cela, nous nous réunissons pour voir s'il y a des problèmes, ce que nous faisons, ou si nous devons fusionner dans la branche "main". Nous continuons de travailler, et nous faisons une pause à midi pour manger. L'après-midi se passe de la même manière que le matin, où nous travaillons sur notre ticket, organisons une réunion, et continuons de travailler.
 
-Pour notre outil de suivi, nous avons utilisés Trello. Nous avons une colonne pour mettre les questions que nous avons (pour les prochaines réunions), une colonne pour les tickets à faire, une colonne pour les tickets en cours, une colonne pour la vérification des tickets et une colonne pour les tickets finis. On a utilisé le système d'étiquette pour s'organiser pour les types des tickets
+Pour notre outil de suivi, nous avons utilisé Trello. Nous avons une colonne pour mettre les questions que nous avons (pour les prochaines réunions), une colonne pour les tickets à faire, une colonne pour les tickets en cours, une colonne pour la vérification des tickets et une colonne pour les tickets finis. Nous avons utilisé le système d'étiquettes pour nous organiser pour les types de tickets.
 
 ## Application 
 
