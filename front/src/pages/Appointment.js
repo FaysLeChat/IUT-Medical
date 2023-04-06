@@ -76,8 +76,8 @@ export default function Appointment(props) {
     const handleEventUpdate = (eventInfo) => {
         const updatedEvent = {
             id: eventInfo.event.id,
-            start_time: eventInfo.event.start,
-            end_time: eventInfo.event.end,
+            start_time: new Date(eventInfo.event.start.getTime() + 2 * 60 * 60 * 1000),
+            end_time: new Date(eventInfo.event.end.getTime() + 2 * 60 * 60 * 1000),
             user_id: eventInfo.event.extendedProps.user_id,
             doctor_id: eventInfo.event.extendedProps.doctor_id,
             patient_id: eventInfo.event.extendedProps.patient_id
