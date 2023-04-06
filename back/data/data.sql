@@ -76,5 +76,5 @@ INSERT INTO users (name, surname, email, password, registration_date, patient_id
     ('Jane', 'Doe', 'jane.doe@example.com', 'password', NULL, 2, NULL),
     ('Bob', 'Smith', 'bob.smith@example.com', 'password', NULL, NULL, 1),
     ('Alice', 'Johnson', 'alice.johnson@example.com', 'password', NULL, NULL, 2),
-    ('Demo', 'User', 'demo@demo.fr', '$2b$10$yEeuHT8jdZ/06s8yLVntMudxJlXg5wee7t8R5S4j43M0XtddQxQWq', '1995-06-15', 1, NULL),
+    ('Demo', 'User', 'demo@demo.fr', '$2b$10$yEeuHT8jdZ/06s8yLVntMudxJlXg5wee7t8R5S4j43M0XtddQxQWq', '1995-06-15', 3, NULL),
     ('Admin', 'User', 'admin@admin.fr', '$2b$10$ldorVOGmA6yfSkvdVytln.PHlazoNywojvFD8/vHthYWdxrQSHGUi', '1995-06-15', NULL, 1);

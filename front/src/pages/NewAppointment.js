@@ -9,7 +9,7 @@ export default function NewAppointment(props){
     const email = amigo && amigo.email;
     const [userInfo, setUserInfo] = useState(null);
     const [doctors, setDoctors] = useState([]);
-    const [patient, setPatient] = useState([]);
+    const [patients, setPatients] = useState([]);
     const [newAppointment, setNewAppointment] = useState({start_time: "", end_time: "", user_id: 0, doctor_id: 0, patient_id: 0});
 
 
@@ -18,9 +18,9 @@ export default function NewAppointment(props){
             .then(response => response.json())
             .then(data => setDoctors(data))
             .catch(error => console.error(error));
-        fetch('http://localhost:8000/patients')
+        fetch('http://localhost:8000/patientsName')
             .then(response => response.json())
-            .then(data => setPatient(data))
+            .then(data => setPatients(data))
             .catch(error => console.error(error));
         async function fetchData() {
             const fetchedUserInfo = await getUserByEmail(email);
@@ -112,8 +112,15 @@ export default function NewAppointment(props){
                                     </Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="appointmentPatientId">
-                                    <Form.Label>Identifiant du patient</Form.Label>
-                                    <Form.Control type="number" name="patient_id" placeholder="Identifiant du patient" value={newAppointment.patient_id} onChange={(e) => handleTextChange(e, 'number')} />
+                                    <Form.Label>Patient</Form.Label>
+                                    <Form.Control as="select" name="patient_id" onChange={(e) => handleTextChange(e)}>
+                                        <option value="">Sélectionner un patient</option>
+                                        {patients.map((patient) => (
+                                            <option key={patient.id} value={patient.id}>
+                                                {patient.name}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="appointmentUserId">
                                     <Form.Label>Identifiant de l'utilisateur</Form.Label>
