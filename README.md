@@ -29,6 +29,7 @@ Les deux types d'utilisateurs peuvent accéder à un profil qui donnent des info
 - Github (pour notre git)
 - Discord (outil de communication)
 - Webstorm (outil de développement, IDE Javascript)
+- Postman (tester les appels API)
 
 #### NPM
 
